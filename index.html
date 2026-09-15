@@ -153,7 +153,7 @@ body { background:#f5f2ec; min-height:100vh; color:#1a1a1a; }
       <div class="input-group">
         <label>DURATION</label>
         <div class="dropdown-box" onclick="openDurationModal()">
-          <span id="selectedDuration">Loading...</span>
+          <span id="selectedDuration">1 Hour — ₹20.00</span>
           <span class="arrow">▼</span>
         </div>
       </div>
@@ -458,6 +458,17 @@ let selectedProductId = 1, selectedDuration = '1 Hour', currentPrice = 20, appli
 let currentOrderId = null, currentOrderDocId = null, currentKey = '', currentKeyDuration = '';
 let paymentTimerInterval = null, currentRateDocId = null, currentPromoDocId = null, currentProductDocId = null;
 
+const FALLBACK_RATES = [
+  { time:'1 Hour',    price:20   },
+  { time:'6 Hours',   price:60   },
+  { time:'12 Hours',  price:80   },
+  { time:'1 Day',     price:120  },
+  { time:'3 Days',    price:300  },
+  { time:'7 Days',    price:650  },
+  { time:'15 Days',   price:900  },
+  { time:'30 Days',   price:1200 },
+];
+
 let fsReady = false;
 function initFirestoreListeners() {
   if (fsReady) return;
@@ -466,6 +477,13 @@ function initFirestoreListeners() {
   console.log('🔥 Firestore listeners active');
   const { db, collection, onSnapshot } = window.FS;
 
+  // Default rates set karo pehle (instant)
+  rates = FALLBACK_RATES.map((r, i) => ({ docId:'local-' + i, ...r }));
+  selectedDuration = '1 Hour';
+  currentPrice = 20;
+  const el0 = document.getElementById('selectedDuration');
+  if (el0) el0.textContent = '1 Hour — ₹20.00';
+
   onSnapshot(collection(db, 'products'), snap => {
     products = snap.docs.map(d => ({ docId:d.id, ...d.data() }));
     if (products.length === 0) products = [{ id:1, name:'Server' }];
@@ -473,18 +491,17 @@ function initFirestoreListeners() {
   }, err => console.error('products:', err));
 
   onSnapshot(collection(db, 'rates'), snap => {
-    rates = snap.docs.map(d => ({ docId:d.id, ...d.data() }));
-    const order = ['1 Hour','6 Hours','12 Hours','1 Day','3 Days','7 Days','15 Days','30 Days'];
-    rates.sort((a,b) => order.indexOf(a.time) - order.indexOf(b.time));
-    if (rates.length && !rates.find(r => r.time === selectedDuration)) {
-      selectedDuration = rates[0].time;
-      currentPrice = Number(rates[0].price);
-      const el = document.getElementById('selectedDuration');
-      if (el) el.textContent = `${selectedDuration} — ₹${currentPrice.toFixed(2)}`;
-    } else if (rates.length) {
-      const r = rates.find(r => r.time === selectedDuration);
+    const loaded = snap.docs.map(d => ({ docId:d.id, ...d.data() }));
+    if (loaded.length > 0) {
+      rates = loaded;
+      const order = ['1 Hour','6 Hours','12 Hours','1 Day','3 Days','7 Days','15 Days','30 Days'];
+      rates.sort((a,b) => order.indexOf(a.time) - order.indexOf(b.time));
+      const r = rates.find(x => x.time === selectedDuration);
       if (r) currentPrice = Number(r.price);
+      else { selectedDuration = rates[0].time; currentPrice = Number(rates[0].price); }
     }
+    const el = document.getElementById('selectedDuration');
+    if (el) el.textContent = `${selectedDuration} — ₹${currentPrice.toFixed(2)}`;
     if (document.getElementById('rateManagerPopup').classList.contains('show')) openRateManager();
   }, err => console.error('rates:', err));
 
@@ -571,8 +588,8 @@ async function applyPromo() {
   document.getElementById('finalPrice').textContent = `₹${finalPrice.toFixed(2)}`;
   document.getElementById('priceSummary').style.display = 'block';
 }
-</script>
-<script>
+      </script>
+      <script>
 async function purchase() {
   if (!selectedProductId || products.length === 0) {
     products = [{ id:1, name:'Server' }]; selectedProductId = 1;
@@ -764,6 +781,11 @@ function closeRateEdit() {
 async function saveRateEdit() {
   const val = Number(document.getElementById('rateEditInput').value);
   if (isNaN(val) || val < 0) { alert('❌ Enter a valid price!'); return; }
+  if (currentRateDocId && currentRateDocId.startsWith('local-')) {
+    alert('⚠️ Ye rate local fallback hai. Firestore me save nahi hoga.');
+    closeRateEdit();
+    return;
+  }
   const { db, doc, updateDoc } = window.FS;
   await updateDoc(doc(db, 'rates', currentRateDocId), { price: val });
   closeRateEdit();
