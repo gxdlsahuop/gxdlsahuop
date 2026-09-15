@@ -21,8 +21,7 @@ body { background:#f5f2ec; min-height:100vh; color:#1a1a1a; }
 .input-group label { display:block; font-size:11px; font-weight:700; color:#6b6b6b; letter-spacing:1.5px; margin-bottom:8px; text-transform:uppercase; }
 .dropdown-box { background:#fff; border:1.5px solid #f0ebe0; border-radius:16px; padding:16px 18px; display:flex; justify-content:space-between; align-items:center; cursor:pointer; font-size:15px; font-weight:500; }
 .dropdown-box .arrow { color:#a0a0a0; font-size:11px; }
-.product-options { background:#fff; border-radius:16px; box-shadow:0 8px 24px rgba(0,0,0,0.1); margin-top:8px; overflow:hidden; display:none; border:1.5px solid #f0ebe0; }
-.option-item { padding:16px 18px; border-bottom:1px solid #f5f1e8; cursor:pointer; font-size:15px; display:flex; justify-content:space-between; align-items:center; }
+.option-item { padding:14px 18px; border-bottom:1px solid #f5f1e8; cursor:pointer; font-size:14.5px; display:flex; justify-content:space-between; align-items:center; }
 .option-item:last-child { border-bottom:none; }
 .option-item:hover { background:#faf8f4; }
 .radio-circle { width:20px; height:20px; border:2px solid #d0d0d0; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
@@ -41,18 +40,19 @@ body { background:#f5f2ec; min-height:100vh; color:#1a1a1a; }
 .total-row { border-top:1px dashed #c8c8c8; padding-top:12px; font-weight:700; font-size:17px; color:#4a2e4a; }
 .purchase-btn { width:100%; padding:18px; background:#3d1f3d; color:#fff; border:none; border-radius:16px; font-size:16px; font-weight:700; cursor:pointer; box-shadow:0 6px 20px rgba(61,31,61,0.3); }
 .secure-text { text-align:center; color:#8a8a8a; font-size:12.5px; margin-top:16px; }
-.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.45); display:none; align-items:flex-end; justify-content:center; z-index:200; }
+.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.55); display:none; align-items:center; justify-content:center; z-index:200; padding:20px; }
 .modal-overlay.show { display:flex; }
-.modal-content { background:#fff; width:100%; max-width:390px; border-radius:28px 28px 0 0; padding:16px; max-height:75vh; overflow-y:auto; }
-.modal-title { text-align:center; font-size:15px; font-weight:700; color:#555; padding:12px; border-bottom:1px solid #f0f0f0; margin-bottom:8px; }
-.admin-login-box h2 { text-align:center; font-size:24px; font-weight:800; color:#4a2e4a; margin-bottom:6px; }
-.admin-login-box p { text-align:center; color:#8a8a8a; font-size:13px; margin-bottom:22px; }
+.modal-content { background:#fff; width:100%; max-width:340px; border-radius:24px; padding:8px; max-height:80vh; overflow-y:auto; box-shadow:0 20px 60px rgba(0,0,0,0.4); }
+.modal-title { text-align:center; font-size:15px; font-weight:700; color:#555; padding:14px 12px; border-bottom:1px solid #f0f0f0; }
+.admin-login-box { padding:26px 22px !important; }
+.admin-login-box h2 { text-align:center; font-size:22px; font-weight:800; color:#4a2e4a; margin-bottom:6px; }
+.admin-login-box p { text-align:center; color:#8a8a8a; font-size:13px; margin-bottom:20px; }
 .admin-login-box label { display:block; font-size:12px; font-weight:700; color:#6b6b6b; margin-bottom:6px; margin-top:12px; letter-spacing:0.5px; text-transform:uppercase; }
-.admin-login-box input { width:100%; padding:15px; background:#faf8f3; border:1.5px solid #f0ebe0; border-radius:14px; font-size:15px; outline:none; }
+.admin-login-box input { width:100%; padding:14px; background:#faf8f3; border:1.5px solid #f0ebe0; border-radius:12px; font-size:15px; outline:none; }
 .admin-login-box input:focus { border-color:#4a7c59; background:#fff; }
-.admin-login-box .login-submit { width:100%; padding:16px; background:#3d1f3d; color:#fff; border:none; border-radius:14px; font-size:16px; font-weight:700; cursor:pointer; margin-top:20px; }
+.admin-login-box .login-submit { width:100%; padding:15px; background:#3d1f3d; color:#fff; border:none; border-radius:12px; font-size:15px; font-weight:700; cursor:pointer; margin-top:18px; }
 .admin-login-box .error-msg { color:#d32f2f; font-size:13px; text-align:center; margin-top:12px; display:none; }
-  .pay-card { background:#fcf9f2; border-radius:28px; padding:30px 22px 26px 22px; box-shadow:0 12px 40px rgba(0,0,0,0.06), inset 0 0 0 1px rgba(255,255,255,0.9); margin-bottom:18px; }
+.pay-card { background:#fcf9f2; border-radius:28px; padding:30px 22px 26px 22px; box-shadow:0 12px 40px rgba(0,0,0,0.06), inset 0 0 0 1px rgba(255,255,255,0.9); margin-bottom:18px; }
 .pay-scan-label { text-align:center; font-size:12px; font-weight:700; color:#4a7c59; letter-spacing:2px; margin-bottom:10px; }
 .pay-title { text-align:center; font-size:28px; font-weight:800; color:#4a2e4a; margin-bottom:6px; }
 .pay-subtitle { text-align:center; font-size:13.5px; color:#8a8a8a; margin-bottom:24px; }
@@ -84,7 +84,7 @@ body { background:#f5f2ec; min-height:100vh; color:#1a1a1a; }
 .checking-sub { font-size:12.5px; color:#8a8a8a; }
 .telegram-btn { display:block; width:100%; padding:14px; background:#229ED9; color:#fff; text-decoration:none; text-align:center; border-radius:14px; font-size:15px; font-weight:700; margin-top:12px; box-shadow:0 4px 12px rgba(34,158,217,0.3); }
 .cancel-btn { width:100%; padding:14px; background:#f0ebe0; color:#4a3b3b; border:none; border-radius:14px; font-size:15px; font-weight:700; cursor:pointer; margin-top:10px; }
-.key-popup { background:#fff; width:100%; max-width:380px; border-radius:24px; padding:30px 24px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.3); margin:auto; }
+.key-popup { background:#fff; width:100%; max-width:360px; border-radius:24px; padding:30px 24px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.3); margin:auto; }
 .key-popup .emoji { font-size:60px; margin-bottom:12px; }
 .key-popup h2 { color:#4a2e4a; font-size:22px; margin-bottom:6px; }
 .key-popup p { color:#8a8a8a; font-size:13.5px; margin-bottom:20px; }
@@ -104,24 +104,20 @@ body { background:#f5f2ec; min-height:100vh; color:#1a1a1a; }
 .admin-card input, .admin-card select { width:100%; padding:12px; border:1.5px solid #f0ebe0; border-radius:10px; font-size:14px; outline:none; background:#faf8f3; }
 .admin-card input:focus, .admin-card select:focus { border-color:#4a7c59; background:#fff; }
 .admin-card button { width:100%; padding:13px; background:#3d1f3d; color:#fff; border:none; border-radius:10px; font-size:15px; font-weight:600; margin-top:12px; cursor:pointer; }
-.admin-card .btn-secondary { background:#4a7c59; }
 .product-item, .promo-item { background:#faf8f3; padding:12px; border-radius:12px; margin-bottom:8px; font-size:13px; display:flex; justify-content:space-between; align-items:center; border:1.5px solid #f0ebe0; }
 .product-item strong { color:#1a1a1a; }
-.promo-item strong { color:#4a7c59; }
-.product-item small, .promo-item small { color:#8a8a8a; font-size:12px; display:block; margin-top:2px; }
+.product-item small { color:#8a8a8a; font-size:12px; display:block; margin-top:2px; }
 .item-actions { display:flex; gap:6px; }
 .edit-btn { background:#4a7c59; color:#fff; border:none; padding:6px 10px; border-radius:6px; font-size:11px; cursor:pointer; width:auto; margin:0; font-weight:600; }
 .delete-btn { background:#d32f2f; color:#fff; border:none; padding:6px 10px; border-radius:6px; font-size:11px; cursor:pointer; width:auto; margin:0; font-weight:600; }
-.duration-row { display:flex; gap:10px; margin-bottom:10px; }
-.duration-row select, .duration-row input { flex:1; }
 .rate-item { display:flex; justify-content:space-between; align-items:center; background:#faf8f3; border:1.5px solid #f0ebe0; border-radius:12px; padding:14px 16px; margin-bottom:8px; cursor:pointer; transition:all 0.2s; }
 .rate-item:hover { background:#f0ebe0; }
 .rate-item .rate-name { font-size:14px; font-weight:600; color:#4a3b3b; }
 .rate-item .rate-price { font-size:14px; font-weight:800; color:#4a7c59; }
 .rate-item .rate-arrow { color:#a0a0a0; font-size:16px; margin-left:10px; }
-.rate-edit-popup { position:fixed; inset:0; background:rgba(0,0,0,0.5); display:none; align-items:center; justify-content:center; z-index:500; padding:20px; }
+.rate-edit-popup { position:fixed; inset:0; background:rgba(0,0,0,0.55); display:none; align-items:center; justify-content:center; z-index:500; padding:20px; }
 .rate-edit-popup.show { display:flex; }
-.rate-edit-box { background:#fff; width:100%; max-width:340px; border-radius:24px; padding:28px 22px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.3); }
+.rate-edit-box { background:#fff; width:100%; max-width:340px; border-radius:24px; padding:28px 22px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.3); max-height:80vh; overflow-y:auto; }
 .rate-edit-box h3 { color:#4a2e4a; font-size:18px; margin-bottom:6px; }
 .rate-edit-box p { color:#8a8a8a; font-size:13px; margin-bottom:16px; }
 .rate-edit-box input { width:100%; padding:16px; background:#faf8f3; border:1.5px solid #f0ebe0; border-radius:14px; font-size:16px; font-weight:600; text-align:center; outline:none; color:#4a2e4a; }
@@ -133,7 +129,8 @@ body { background:#f5f2ec; min-height:100vh; color:#1a1a1a; }
 </style>
 </head>
 <body>
-  <div class="screen active" id="screen-store">
+
+<div class="screen active" id="screen-store">
   <div class="mobile-wrapper">
     <div class="header">
       <div class="brand-name">GxdL๛SAHU〆OP<br>ONLINE STORE</div>
@@ -148,11 +145,10 @@ body { background:#f5f2ec; min-height:100vh; color:#1a1a1a; }
       <p class="subtitle">Instant Digital License Keys</p>
       <div class="input-group">
         <label>PRODUCT</label>
-        <div class="dropdown-box" onclick="toggleProductList()">
+        <div class="dropdown-box" onclick="openProductModal()">
           <span id="selectedProduct">Server</span>
           <span class="arrow">▼</span>
         </div>
-        <div class="product-options" id="productOptions"></div>
       </div>
       <div class="input-group">
         <label>DURATION</label>
@@ -178,8 +174,9 @@ body { background:#f5f2ec; min-height:100vh; color:#1a1a1a; }
       <p class="secure-text">🛡️ Safe and secure instant key delivery</p>
     </div>
   </div>
-  </div>
-  <div class="screen" id="screen-payment">
+</div>
+
+<div class="screen" id="screen-payment">
   <div class="mobile-wrapper">
     <div class="header">
       <div class="brand-name">GxdL๛SAHU〆OP<br>ONLINE STORE</div>
@@ -223,8 +220,8 @@ body { background:#f5f2ec; min-height:100vh; color:#1a1a1a; }
       <button class="cancel-btn" onclick="cancelPayment()">Cancel & Go Back</button>
     </div>
   </div>
-  </div>
-  <div class="screen" id="screen-dashboard">
+</div>
+<div class="screen" id="screen-dashboard">
   <div class="mobile-wrapper">
     <div class="admin-header">
       <h2>🛠️ Admin Dashboard</h2>
@@ -271,8 +268,16 @@ body { background:#f5f2ec; min-height:100vh; color:#1a1a1a; }
       <div id="promoList" style="margin-top:14px;"></div>
     </div>
   </div>
+</div>
+
+<div class="modal-overlay" id="productModal" onclick="closeProductModal(event)">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <div class="modal-title">Select Product</div>
+    <div id="productOptions"></div>
   </div>
-  <div class="modal-overlay" id="durationModal" onclick="closeDurationModal(event)">
+</div>
+
+<div class="modal-overlay" id="durationModal" onclick="closeDurationModal(event)">
   <div class="modal-content" onclick="event.stopPropagation()">
     <div class="modal-title">Select Duration</div>
     <div id="durationOptions"></div>
@@ -308,8 +313,9 @@ body { background:#f5f2ec; min-height:100vh; color:#1a1a1a; }
     <button class="key-btn key-btn-done" onclick="goHome()">✅ Sold</button>
   </div>
 </div>
+
 <div class="rate-edit-popup" id="productManagerPopup">
-  <div class="rate-edit-box" style="max-width:360px;text-align:left;max-height:80vh;overflow-y:auto;">
+  <div class="rate-edit-box" style="max-width:360px;text-align:left;">
     <h3 style="text-align:center;color:#4a2e4a;font-size:18px;margin-bottom:16px;">Manage Products</h3>
     <div id="productManagerList"></div>
     <div class="btn-row" style="display:flex;gap:10px;margin-top:16px;">
@@ -332,7 +338,7 @@ body { background:#f5f2ec; min-height:100vh; color:#1a1a1a; }
 </div>
 
 <div class="rate-edit-popup" id="rateManagerPopup">
-  <div class="rate-edit-box" style="max-width:360px;text-align:left;max-height:80vh;overflow-y:auto;">
+  <div class="rate-edit-box" style="max-width:360px;text-align:left;">
     <h3 style="text-align:center;color:#4a2e4a;font-size:18px;margin-bottom:16px;">Manage Duration Rates</h3>
     <div id="rateManagerList"></div>
     <div class="btn-row" style="display:flex;gap:10px;margin-top:16px;">
@@ -352,6 +358,7 @@ body { background:#f5f2ec; min-height:100vh; color:#1a1a1a; }
     </div>
   </div>
 </div>
+
 <div class="rate-edit-popup" id="promoEditPopup">
   <div class="rate-edit-box" style="max-width:360px;text-align:left;">
     <h3 id="promoEditTitle" style="text-align:center;color:#4a2e4a;font-size:18px;margin-bottom:16px;">Create Promo Code</h3>
@@ -363,6 +370,7 @@ body { background:#f5f2ec; min-height:100vh; color:#1a1a1a; }
     <input type="number" id="editPromoMaxUsers" placeholder="e.g. 10" style="width:100%;padding:12px;background:#faf8f3;border:1.5px solid #f0ebe0;border-radius:10px;font-size:14px;outline:none;margin-bottom:12px;text-align:left;font-weight:500;">
     <label style="display:block;font-size:12px;font-weight:700;color:#6b6b6b;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">Expiry Duration</label>
     <select id="editPromoHours" style="width:100%;padding:12px;background:#faf8f3;border:1.5px solid #f0ebe0;border-radius:10px;font-size:14px;outline:none;margin-bottom:12px;font-weight:500;">
+      <option value="0">0 Hours</option>
       <option value="1">1 Hour</option>
       <option value="2">2 Hours</option>
       <option value="3">3 Hours</option>
@@ -415,19 +423,16 @@ const DEFAULT_RATES = [
 async function ensureRates() {
   try {
     const snap = await getDocs(collection(db, 'rates'));
-    const existingNames = snap.docs.map(d => d.data().time);
-    let added = 0;
-    for (const r of DEFAULT_RATES) {
-      if (!existingNames.includes(r.time)) { await addDoc(collection(db, 'rates'), r); added++; }
+    if (snap.empty) {
+      for (const r of DEFAULT_RATES) await addDoc(collection(db, 'rates'), r);
     }
-    if (added > 0) console.log(`✅ Added ${added} missing rates`);
   } catch (e) { console.error('ensureRates error:', e); }
 }
 
 async function ensureProducts() {
   try {
     const snap = await getDocs(collection(db, 'products'));
-    if (snap.empty) { await addDoc(collection(db, 'products'), { id:1, name:'Server' }); }
+    if (snap.empty) await addDoc(collection(db, 'products'), { id:1, name:'Server' });
   } catch (e) { console.error('ensureProducts error:', e); }
 }
 
@@ -448,28 +453,15 @@ function showScreen(id) {
   window.scrollTo({ top:0, behavior:'instant' });
 }
 
-let products = [];
-let rates = [];
-let promos = [];
-let keyStock = [];
-let pendingOrders = [];
-let selectedProductId = 1;
-let selectedDuration = '1 Hour';
-let currentPrice = 20;
-let appliedDiscount = 0;
-let currentOrderId = null;
-let currentOrderDocId = null;
-let currentKey = '';
-let currentKeyDuration = '';
-let paymentTimerInterval = null;
-let currentRateDocId = null;
-let currentPromoDocId = null;
-let currentProductDocId = null;
+let products = [], rates = [], promos = [], keyStock = [], pendingOrders = [];
+let selectedProductId = 1, selectedDuration = '1 Hour', currentPrice = 20, appliedDiscount = 0;
+let currentOrderId = null, currentOrderDocId = null, currentKey = '', currentKeyDuration = '';
+let paymentTimerInterval = null, currentRateDocId = null, currentPromoDocId = null, currentProductDocId = null;
 
 let fsReady = false;
 function initFirestoreListeners() {
   if (fsReady) return;
-  if (!window.FS) { console.warn('⚠️ Firestore not ready'); return; }
+  if (!window.FS) return;
   fsReady = true;
   console.log('🔥 Firestore listeners active');
   const { db, collection, onSnapshot } = window.FS;
@@ -484,7 +476,6 @@ function initFirestoreListeners() {
     rates = snap.docs.map(d => ({ docId:d.id, ...d.data() }));
     const order = ['1 Hour','6 Hours','12 Hours','1 Day','3 Days','7 Days','15 Days','30 Days'];
     rates.sort((a,b) => order.indexOf(a.time) - order.indexOf(b.time));
-    console.log('📊 Rates loaded:', rates.length);
     if (rates.length && !rates.find(r => r.time === selectedDuration)) {
       selectedDuration = rates[0].time;
       currentPrice = Number(rates[0].price);
@@ -513,36 +504,39 @@ function initFirestoreListeners() {
     checkMyOrder();
   }, err => console.error('orders:', err));
 }
-
 window.addEventListener('firestore-ready', initFirestoreListeners);
 if (window.FS) initFirestoreListeners();
+
 function renderProducts() {
-  const c = document.getElementById('productOptions'); c.innerHTML = '';
   if (products.length === 0) {
     products = [{ id:1, name:'Server', docId:'fallback' }];
     selectedProductId = 1;
     document.getElementById('selectedProduct').textContent = 'Server';
-    c.innerHTML = `<div class="option-item"><span>Server</span></div>`;
     return;
   }
-  products.forEach(p => {
-    c.innerHTML += `<div class="option-item" onclick="selectProduct(${p.id}, '${p.name}')"><span>${p.name}</span></div>`;
-  });
   document.getElementById('selectedProduct').textContent = products[0].name;
   selectedProductId = products[0].id;
 }
-function toggleProductList() {
-  const el = document.getElementById('productOptions');
-  el.style.display = el.style.display === 'block' ? 'none' : 'block';
+
+function openProductModal() {
+  const c = document.getElementById('productOptions'); c.innerHTML = '';
+  if (products.length === 0) c.innerHTML = '<p style="padding:20px;text-align:center;color:#999;">⏳ Loading...</p>';
+  products.forEach(p => {
+    const active = p.id === selectedProductId;
+    c.innerHTML += `<div class="option-item" onclick="selectProduct(${p.id}, '${(p.name||'').replace(/'/g,"\\'")}')"><span>${p.name}</span><div class="radio-circle ${active ? 'active' : ''}"></div></div>`;
+  });
+  document.getElementById('productModal').classList.add('show');
 }
+function closeProductModal(e) { if (e.target.id === 'productModal') document.getElementById('productModal').classList.remove('show'); }
 function selectProduct(id, name) {
   selectedProductId = id;
   document.getElementById('selectedProduct').textContent = name;
-  document.getElementById('productOptions').style.display = 'none';
+  document.getElementById('productModal').classList.remove('show');
 }
+
 function openDurationModal() {
   const c = document.getElementById('durationOptions'); c.innerHTML = '';
-  if (rates.length === 0) c.innerHTML = '<p style="padding:20px;text-align:center;color:#999;">⏳ Loading rates...</p>';
+  if (rates.length === 0) c.innerHTML = '<p style="padding:20px;text-align:center;color:#999;">⏳ Loading...</p>';
   rates.forEach(r => {
     const active = r.time === selectedDuration;
     c.innerHTML += `<div class="option-item" onclick="selectDuration('${r.time}', ${r.price})"><span>${r.time} — ₹${Number(r.price).toFixed(2)}</span><div class="radio-circle ${active ? 'active' : ''}"></div></div>`;
@@ -559,7 +553,8 @@ function selectDuration(time, price) {
   document.getElementById('promoInput').value = '';
   document.getElementById('durationModal').classList.remove('show');
 }
-function applyPromo() {
+
+async function applyPromo() {
   const code = document.getElementById('promoInput').value.trim().toUpperCase();
   const status = document.getElementById('promoStatus');
   if (!code) { status.textContent = "❌ Please enter a promo code!"; status.style.color = "#d32f2f"; return; }
@@ -576,6 +571,8 @@ function applyPromo() {
   document.getElementById('finalPrice').textContent = `₹${finalPrice.toFixed(2)}`;
   document.getElementById('priceSummary').style.display = 'block';
 }
+</script>
+<script>
 async function purchase() {
   if (!selectedProductId || products.length === 0) {
     products = [{ id:1, name:'Server' }]; selectedProductId = 1;
@@ -614,11 +611,7 @@ function startPaymentTimer(totalSeconds) {
   paymentTimerInterval = setInterval(() => {
     remaining--;
     updateTimerDisplay(remaining, timerEl, barEl, totalSeconds);
-    if (remaining <= 0) {
-      clearInterval(paymentTimerInterval);
-      alert('⏰ Time expired! Order automatically cancelled.');
-      cancelPayment();
-    }
+    if (remaining <= 0) { clearInterval(paymentTimerInterval); alert('⏰ Time expired! Order cancelled.'); cancelPayment(); }
   }, 1000);
 }
 function updateTimerDisplay(remaining, timerEl, barEl, total) {
@@ -640,18 +633,12 @@ function checkMyOrder() {
     document.getElementById('keyPopup').classList.add('show');
   }
 }
-function copyKey() {
-  navigator.clipboard.writeText(currentKey).then(() => alert('✅ License Key copied!')).catch(() => alert(`License Key: ${currentKey}`));
-}
-function goHome() {
-  document.getElementById('keyPopup').classList.remove('show');
-  currentOrderId = null; currentOrderDocId = null;
-  showScreen('screen-store');
-}
+function copyKey() { navigator.clipboard.writeText(currentKey).then(() => alert('✅ License Key copied!')).catch(() => alert(`License Key: ${currentKey}`)); }
+function goHome() { document.getElementById('keyPopup').classList.remove('show'); currentOrderId = null; currentOrderDocId = null; showScreen('screen-store'); }
 async function cancelPayment() {
   if (paymentTimerInterval) clearInterval(paymentTimerInterval);
   if (currentOrderDocId && window.FS) {
-    try { const { db, doc, deleteDoc } = window.FS; await deleteDoc(doc(db, 'orders', currentOrderDocId)); } catch(e) { console.warn('delete failed', e); }
+    try { const { db, doc, deleteDoc } = window.FS; await deleteDoc(doc(db, 'orders', currentOrderDocId)); } catch(e) {}
   }
   currentOrderId = null; currentOrderDocId = null;
   showScreen('screen-store');
@@ -752,7 +739,7 @@ async function deleteProduct(docId, name) {
   if (!confirm(`Delete product "${name}"?`)) return;
   try { const { db, doc, deleteDoc } = window.FS; await deleteDoc(doc(db, 'products', docId)); alert(`✅ Product "${name}" deleted!`); } catch (e) { alert('❌ Delete failed: ' + e.message); }
 }
-  function openRateManager() {
+function openRateManager() {
   const list = document.getElementById('rateManagerList'); list.innerHTML = '';
   if (rates.length === 0) list.innerHTML = '<p style="color:#999;font-size:13px;text-align:center;padding:20px 0;">⏳ Loading rates...</p>';
   else rates.forEach((r) => {
@@ -785,10 +772,10 @@ async function saveRateEdit() {
 async function addLicenseKey() {
   const keyInput = document.getElementById('newLicenseKey');
   const durationInput = document.getElementById('newKeyDuration');
-  const key = keyInput.value.trim().toUpperCase();
+  const key = keyInput.value.trim();
   const duration = durationInput.value;
   if (!key) { alert('❌ Key daalein!'); return; }
-  if (keyStock.some(k => k.key === key)) { alert('❌ Yeh key pehle se stock mein hai!'); return; }
+  if (keyStock.some(k => k.key.toLowerCase() === key.toLowerCase())) { alert('❌ Yeh key pehle se stock mein hai!'); return; }
   const { db, collection, addDoc } = window.FS;
   await addDoc(collection(db, 'keyStock'), { key, duration, addedAt: Date.now(), used: false });
   keyInput.value = '';
@@ -807,7 +794,7 @@ function renderKeyStock() {
   if (used.length > 0) {
     list.innerHTML += `<p style="font-size:13px;color:#8a8a8a;font-weight:700;margin-top:14px;">📦 Used: ${used.length}</p>`;
     used.slice(-5).forEach(k => {
-      list.innerHTML += `<div class="product-item" style="padding:10px;opacity:0.6;"><div style="flex:1;min-width:0;"><strong style="font-family:monospace;font-size:11px;word-break:break-all;">${k.key}</strong><small style="color:#8a8a8a;">⏱️ ${k.duration || 'N/A'}</small></div></div>`;
+      list.innerHTML += `<div class="product-item" style="padding:10px;display:flex;justify-content:space-between;align-items:center;gap:8px;opacity:0.6;"><div style="flex:1;min-width:0;overflow:hidden;"><strong style="font-family:monospace;font-size:11px;word-break:break-all;">${k.key}</strong><small style="color:#8a8a8a;">⏱️ ${k.duration || 'N/A'}</small></div><button onclick="deleteKey('${k.docId}')" style="background:#d32f2f;color:#fff;border:none;padding:6px 12px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;flex-shrink:0;width:auto;">Del</button></div>`;
     });
   }
 }
@@ -830,7 +817,7 @@ function renderPromos() {
   if (promos.length === 0) { list.innerHTML = '<p style="color:#999;font-size:13px;text-align:center;padding:20px 0;">No promo codes yet.</p>'; return; }
   promos.forEach(p => {
     const remaining = Number(p.expiry) - Date.now();
-    const timeText = remaining <= 0 ? 'Expired' : `${Math.floor(remaining/3600000)}h ${Math.floor((remaining%3600000)/60000)}m left`;
+    const timeText = remaining <= 0 ? 'Expired' : `${Math.floor(remaining/3600000)}h ${Math.floor((remaining%3600000)/60000)}m ${Math.floor((remaining%60000)/1000)}s left`;
     const safeCode = (p.code || '').replace(/'/g, "\\'");
     list.innerHTML += `<div class="rate-item" style="cursor:default;flex-direction:column;align-items:stretch;gap:8px;"><div style="display:flex;flex-direction:column;"><span class="rate-name">${p.code} — ₹${p.discount} off</span><span style="font-size:11.5px;color:#8a8a8a;margin-top:2px;">Used: ${p.usedCount||0}/${p.maxUsers} | ${timeText}</span></div><div style="display:flex;gap:6px;"><button onclick="openPromoEdit('${p.docId}')" style="flex:1;background:#4a7c59;color:#fff;border:none;padding:8px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">✎ Edit</button><button onclick="deletePromo('${p.docId}', '${safeCode}')" style="flex:1;background:#d32f2f;color:#fff;border:none;padding:8px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">🗑 Delete</button></div></div>`;
   });
