@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel - GxdL Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Inter', sans-serif; }
+body { background:#f5f2ec; min-height:100vh; color:#1a1a1a; }
+.screen { display:none; }
+.screen.active { display:block; }
+.mobile-wrapper { width:100%; max-width:390px; margin:0 auto; padding:16px; }
+.login-wrapper { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:16px; }
+.login-box { background:#fff; width:100%; max-width:360px; border-radius:24px; padding:32px 24px; box-shadow:0 20px 60px rgba(0,0,0,0.15); }
+.login-box h1 { text-align:center; font-size:26px; font-weight:800; color:#4a2e4a; margin-bottom:6px; }
+.login-box p { text-align:center; color:#8a8a8a; font-size:13px; margin-bottom:24px; }
+.login-box label { display:block; font-size:12px; font-weight:700; color:#6b6b6b; margin-bottom:6px; margin-top:12px; text-transform:uppercase; letter-spacing:0.5px; }
+.login-box input { width:100%; padding:14px; background:#faf8f3; border:1.5px solid #f0ebe0; border-radius:12px; font-size:15px; outline:none; }
+.login-box input:focus { border-color:#4a7c59; background:#fff; }
+.login-box .remember-row { display:flex; align-items:center; gap:8px; margin-top:16px; font-size:13px; color:#6b6b6b; }
+.login-box .remember-row input { width:auto; margin:0; }
+.login-box .login-submit { width:100%; padding:15px; background:#3d1f3d; color:#fff; border:none; border-radius:12px; font-size:15px; font-weight:700; cursor:pointer; margin-top:20px; }
+.login-box .error-msg { color:#d32f2f; font-size:13px; text-align:center; margin-top:12px; display:none; }
+.admin-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; gap:8px; }
+.admin-header h2 { font-size:20px; color:#4a2e4a; font-weight:800; }
+.admin-close { background:#4a7c59; color:#fff; border:none; padding:10px 14px; border-radius:10px; font-size:14px; font-weight:600; cursor:pointer; }
+.admin-card { background:#fff; padding:20px; border-radius:20px; box-shadow:0 8px 24px rgba(0,0,0,0.05); margin-bottom:16px; }
+.admin-card h3 { font-size:15px; margin-bottom:12px; color:#4a2e4a; font-weight:700; }
+.admin-card label { display:block; font-size:12px; font-weight:700; color:#6b6b6b; margin-bottom:6px; margin-top:10px; text-transform:uppercase; letter-spacing:0.5px; }
+.admin-card input, .admin-card select { width:100%; padding:12px; border:1.5px solid #f0ebe0; border-radius:10px; font-size:14px; outline:none; background:#faf8f3; }
+.admin-card input:focus, .admin-card select:focus { border-color:#4a7c59; background:#fff; }
+.admin-card button { width:100%; padding:13px; background:#3d1f3d; color:#fff; border:none; border-radius:10px; font-size:15px; font-weight:600; margin-top:12px; cursor:pointer; }
+.stats-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px; }
+.stat-card { background:linear-gradient(135deg,#fcf9f2 0%,#faf8f3 100%); padding:16px; border-radius:16px; border:1.5px solid #f0ebe0; text-align:center; }
+.stat-card .stat-label { font-size:11px; font-weight:700; color:#6b6b6b; letter-spacing:1px; text-transform:uppercase; margin-bottom:6px; }
+.stat-card .stat-value { font-size:24px; font-weight:800; color:#4a2e4a; }
+.stat-card .stat-value.green { color:#4a7c59; }
+.stat-card .stat-value.red { color:#d32f2f; }
+.stat-card.clickable { cursor:pointer; transition:transform 0.2s, box-shadow 0.2s; }
+.stat-card.clickable:active { transform:scale(0.97); }
+.reset-btn { width:100%; padding:12px; background:#d32f2f; color:#fff; border:none; border-radius:10px; font-size:14px; font-weight:700; cursor:pointer; margin-top:12px; }
+.history-header { display:flex; justify-content:space-between; align-items:center; cursor:pointer; }
+.history-header h3 { margin:0; }
+.history-header p { font-size:12.5px; color:#8a8a8a; margin-top:4px; }
+.history-arrow { font-size:18px; color:#4a3b3b; transition:transform 0.3s; }
+.product-item { background:#faf8f3; padding:12px; border-radius:12px; margin-bottom:8px; font-size:13px; display:flex; justify-content:space-between; align-items:center; border:1.5px solid #f0ebe0; }
+.product-item strong { color:#1a1a1a; }
+.product-item small { color:#8a8a8a; font-size:12px; display:block; margin-top:2px; }
+.item-actions { display:flex; gap:6px; }
+.edit-btn { background:#4a7c59; color:#fff; border:none; padding:6px 10px; border-radius:6px; font-size:11px; cursor:pointer; width:auto; margin:0; font-weight:600; }
+.delete-btn { background:#d32f2f; color:#fff; border:none; padding:6px 10px; border-radius:6px; font-size:11px; cursor:pointer; width:auto; margin:0; font-weight:600; }
+.rate-item { display:flex; justify-content:space-between; align-items:center; background:#faf8f3; border:1.5px solid #f0ebe0; border-radius:12px; padding:14px 16px; margin-bottom:8px; cursor:pointer; }
+.rate-item .rate-name { font-size:14px; font-weight:600; color:#4a3b3b; }
+.rate-item .rate-price { font-size:14px; font-weight:800; color:#4a7c59; }
+.rate-item .rate-arrow { color:#a0a0a0; font-size:16px; margin-left:10px; }
+.history-item { background:#faf8f3; padding:14px; border-radius:12px; margin-bottom:10px; font-size:13px; border:1.5px solid #f0ebe0; }
+.history-item .hi-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; }
+.history-item .hi-order { font-weight:700; color:#4a2e4a; font-family:monospace; font-size:12px; }
+.history-item .hi-status { background:#e8f0e6; color:#4a7c59; padding:3px 8px; border-radius:6px; font-size:10px; font-weight:700; }
+.history-item .hi-details { color:#6b6b6b; font-size:12px; display:flex; justify-content:space-between; }
+.history-item .hi-key { font-family:monospace; font-size:11px; color:#4a7c59; margin-top:6px; padding-top:6px; border-top:1px dashed #d8cfc0; word-break:break-all; }
+.rate-edit-popup { position:fixed; inset:0; background:rgba(0,0,0,0.55); display:none; align-items:center; justify-content:center; z-index:500; padding:20px; }
+.rate-edit-popup.show { display:flex; }
+.rate-edit-box { background:#fff; width:100%; max-width:340px; border-radius:24px; padding:28px 22px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.3); max-height:80vh; overflow-y:auto; }
+.rate-edit-box h3 { color:#4a2e4a; font-size:18px; margin-bottom:6px; }
+.rate-edit-box p { color:#8a8a8a; font-size:13px; margin-bottom:16px; }
+.rate-edit-box input { width:100%; padding:16px; background:#faf8f3; border:1.5px solid #f0ebe0; border-radius:14px; font-size:16px; font-weight:600; text-align:center; outline:none; color:#4a2e4a; }
+.rate-edit-box input:focus { border-color:#4a7c59; background:#fff; }
+.rate-edit-box .btn-row { display:flex; gap:10px; margin-top:16px; }
+.rate-edit-box .btn-row button { flex:1; padding:14px; border:none; border-radius:12px; font-size:15px; font-weight:700; cursor:pointer; margin:0; }
+.rate-edit-box .btn-save { background:#4a7c59; color:#fff; }
+.rate-edit-box .btn-cancel { background:#f0ebe0; color:#4a3b3b; }
+#toast { position:fixed; bottom:30px; left:50%; transform:translateX(-50%) translateY(120px); background:#3d1f3d; color:#fff; padding:14px 22px; border-radius:14px; font-size:14px; font-weight:600; box-shadow:0 10px 30px rgba(0,0,0,0.25); z-index:9999; opacity:0; transition:all 0.35s ease; max-width:90%; text-align:center; pointer-events:none; word-break:break-word; }
+#toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+#toast.success { background:#4a7c59; }
+#toast.error { background:#d32f2f; }
+#toast.info { background:#3d1f3d; }
+#customConfirm { position:fixed; inset:0; background:rgba(0,0,0,0.55); display:none; align-items:center; justify-content:center; z-index:10000; padding:20px; }
+#customConfirm.show { display:flex; }
+#customConfirm .confirm-box { background:#fff; width:100%; max-width:340px; border-radius:24px; padding:26px 22px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,0.3); animation:popIn 0.25s ease; }
+@keyframes popIn { from { transform:scale(0.85); opacity:0; } to { transform:scale(1); opacity:1; } }
+#customConfirm .confirm-box p { font-size:14px; color:#4a3b3b; font-weight:600; line-height:1.5; margin-bottom:20px; white-space:pre-line; }
+#customConfirm .confirm-box .btn-row { display:flex; gap:10px; }
+#customConfirm .confirm-box .btn-row button { flex:1; padding:13px; border:none; border-radius:12px; font-size:14px; font-weight:700; cursor:pointer; }
+#customConfirm .btn-no { background:#f0ebe0; color:#4a3b3b; }
+#customConfirm .btn-yes { background:#d32f2f; color:#fff; }
+/* ===== MAIN COLLAPSIBLE ===== */
+.promo-usage-header, .promo-codes-header { display:flex; justify-content:space-between; align-items:center; cursor:pointer; padding:4px 0; }
+.promo-usage-header h3, .promo-codes-header h3 { margin:0; font-size:15px; color:#4a2e4a; font-weight:700; }
+.promo-usage-header .puh-main-arrow, .promo-codes-header .pch-arrow { font-size:16px; color:#4a3b3b; transition:transform 0.3s; display:inline-block; }
+.promo-usage-header .puh-main-arrow.open, .promo-codes-header .pch-arrow.open { transform:rotate(180deg); }
+.promo-usage-body, .promo-codes-body { max-height:0; overflow:hidden; transition:max-height 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease; opacity:0; margin-top:0; }
+.promo-usage-body.open, .promo-codes-body.open { max-height:3000px; opacity:1; margin-top:12px; }
+/* ===== INNER USERS DROPDOWN ===== */
+.promo-users-header { display:flex; justify-content:space-between; align-items:center; cursor:pointer; padding:6px 0; }
+.promo-users-header .puh-arrow { font-size:11px; color:#4a7c59; transition:transform 0.3s; display:inline-block; }
+.promo-users-header .puh-arrow.open { transform:rotate(180deg); }
+.promo-users-body { max-height:0; overflow:hidden; transition:max-height 0.4s ease, opacity 0.3s ease; opacity:0; margin-top:0; }
+.promo-users-body.open { max-height:600px; opacity:1; margin-top:8px; }
+/* ===== PROMO USAGE CARDS ===== */
+.promo-usage-list { display:flex; flex-direction:column; gap:12px; margin-top:12px; }
+.promo-usage-card { background:#faf8f3; border:1.5px solid #f0ebe0; border-radius:16px; padding:14px; display:flex; flex-direction:column; gap:8px; }
+.promo-usage-card.expired { background:#fef5f5; border-color:#f8d7d7; opacity:0.85; }
+.promo-usage-top { display:flex; justify-content:space-between; align-items:center; gap:8px; }
+.promo-usage-code { font-size:15px; font-weight:800; color:#4a2e4a; letter-spacing:0.5px; word-break:break-all; }
+.promo-usage-badge { padding:4px 10px; border-radius:8px; font-size:10.5px; font-weight:700; white-space:nowrap; }
+.promo-usage-badge.active { background:#e8f0e6; color:#4a7c59; }
+.promo-usage-badge.expired { background:#fde8e8; color:#d32f2f; }
+.promo-usage-badge.full { background:#fff4e0; color:#c77700; }
+.promo-usage-info { display:flex; flex-direction:column; gap:4px; font-size:12.5px; color:#4a3b3b; }
+.promo-usage-info .pui-row { display:flex; justify-content:space-between; align-items:center; gap:8px; }
+.promo-usage-info .pui-label { color:#8a8a8a; font-weight:600; }
+.promo-usage-info .pui-value { font-weight:700; color:#1a1a1a; }
+.promo-usage-info .pui-value.green { color:#4a7c59; }
+.promo-usage-info .pui-value.red { color:#d32f2f; }
+.promo-usage-info .pui-value.orange { color:#c77700; }
+.promo-users-title { font-size:11.5px; font-weight:700; color:#6b6b6b; letter-spacing:0.5px; margin-top:4px; text-transform:uppercase; }
+.promo-users-list { display:flex; flex-direction:column; gap:6px; max-height:240px; overflow-y:auto; padding-right:4px; }
+.promo-user-item { background:#fff; border:1px solid #f0ebe0; border-radius:10px; padding:8px 10px; font-size:12px; display:flex; flex-direction:column; gap:2px; }
+.promo-user-item .pui-name { font-weight:700; color:#4a2e4a; }
+.promo-user-item .pui-phone { color:#6b6b6b; font-size:11.5px; }
+.promo-user-item .pui-order { color:#4a7c59; font-family:monospace; font-size:11px; font-weight:700; }
+.promo-user-item .pui-date { color:#8a8a8a; font-size:10.5px; }
+.promo-empty { text-align:center; color:#999; font-size:13px; padding:20px 0; }
+/* ===== ALL ORDERS POPUP ===== */
+.all-orders-popup { position:fixed; inset:0; background:rgba(0,0,0,0.6); display:none; align-items:center; justify-content:center; z-index:5000; padding:16px; }
+.all-orders-popup.show { display:flex; }
+.all-orders-box { background:#f5f2ec; width:100%; max-width:420px; border-radius:24px; max-height:90vh; display:flex; flex-direction:column; box-shadow:0 20px 60px rgba(0,0,0,0.4); }
+.all-orders-header { background:#fff; padding:18px 20px; border-radius:24px 24px 0 0; display:flex; justify-content:space-between; align-items:center; border-bottom:1.5px solid #f0ebe0; }
+.all-orders-header h3 { font-size:17px; color:#4a2e4a; font-weight:800; }
+.all-orders-close { background:#f0ebe0; border:none; width:34px; height:34px; border-radius:50%; font-size:16px; cursor:pointer; font-weight:700; color:#4a3b3b; }
+.all-orders-list { padding:16px; overflow-y:auto; flex:1; }
+.order-full-card { background:#fff; border-radius:16px; padding:14px; margin-bottom:12px; border:1.5px solid #f0ebe0; box-shadow:0 4px 12px rgba(0,0,0,0.04); }
+.order-full-card .ofc-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+.order-full-card .ofc-id { font-family:monospace; font-size:12.5px; font-weight:700; color:#4a2e4a; }
+.order-full-card .ofc-status { padding:4px 10px; border-radius:6px; font-size:10.5px; font-weight:700; }
+.ofc-status.approved { background:#e8f0e6; color:#4a7c59; }
+.ofc-status.pending { background:#fff4e0; color:#c77700; }
+.ofc-status.rejected { background:#fde8e8; color:#d32f2f; }
+.order-full-card .ofc-row { font-size:13px; color:#4a3b3b; margin-bottom:5px; display:flex; gap:6px; }
+.order-full-card .ofc-label { color:#8a8a8a; font-weight:600; min-width:75px; }
+.order-full-card .ofc-value { font-weight:700; color:#1a1a1a; word-break:break-word; }
+.order-full-card .ofc-value.price { color:#4a7c59; }
+.order-full-card .ofc-promo { background:#f0fdf4; border:1px dashed #4a7c59; border-radius:8px; padding:8px 10px; margin:8px 0; font-size:12.5px; color:#4a7c59; font-weight:700; }
+.order-full-card .ofc-key { background:#faf8f3; border:1.5px solid #f0ebe0; border-radius:8px; padding:10px; margin-top:8px; font-family:monospace; font-size:13px; color:#4a7c59; font-weight:700; word-break:break-all; text-align:center; }
+.order-full-card .ofc-key.empty { color:#d32f2f; font-family:'Inter', sans-serif; font-weight:600; font-size:12.5px; }
+</style>
+</head>
+<body>
+  <!-- ===== ADMIN LOGIN ===== -->
+<div class="screen active" id="screen-login">
+  <div class="login-wrapper">
+    <div class="login-box">
+      <h1>🔐 Admin Login</h1>
+      <p>Enter your credentials to continue</p>
+      <form id="loginForm">
+        <label>USERNAME</label>
+        <input type="text" id="adminUser" placeholder="Enter admin username" required>
+        <label>PASSWORD</label>
+        <input type="password" id="adminPass" placeholder="Enter your password" required>
+        <div class="remember-row">
+          <input type="checkbox" id="rememberDevice" checked>
+          <label for="rememberDevice" style="margin:0;text-transform:none;font-weight:500;font-size:13px;">Remember this device</label>
+        </div>
+        <button type="submit" class="login-submit">Login to Dashboard →</button>
+        <p class="error-msg" id="loginError">❌ Invalid username or password!</p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ===== DASHBOARD ===== -->
+<div class="screen" id="screen-dashboard">
+  <div class="mobile-wrapper">
+    <div class="admin-header">
+      <h2>🛠️ Admin</h2>
+      <div style="display:flex;gap:8px;">
+        <button class="admin-close" onclick="manualRefresh()" style="background:#4a7c59;">🔄</button>
+        <button class="admin-close" onclick="changePasswordOpen()">⚙️</button>
+      </div>
+    </div>
+
+    <div class="admin-card">
+      <h3>📊 Stats Overview</h3>
+      <div class="stats-grid">
+        <div class="stat-card clickable" onclick="openAllOrders()"><div class="stat-label">Total Orders</div><div class="stat-value" id="statTotalOrders">0</div></div>
+        <div class="stat-card"><div class="stat-label">Total Revenue</div><div class="stat-value green" id="statRevenue">₹0</div></div>
+        <div class="stat-card"><div class="stat-label">Pending</div><div class="stat-value red" id="statPending">0</div></div>
+        <div class="stat-card"><div class="stat-label">Available Keys</div><div class="stat-value green" id="statKeys">0</div></div>
+      </div>
+      <button class="reset-btn" onclick="resetOrderHistory()">🔄 Reset Order History</button>
+    </div>
+
+    <!-- ===== PROMO CODE USAGE (Main Collapsible) ===== -->
+    <div class="admin-card">
+      <div class="promo-usage-header" onclick="togglePromoUsageMain()">
+        <h3>🎟️ Promo Code Usage</h3>
+        <span class="puh-main-arrow" id="promoUsageMainArrow">▼</span>
+      </div>
+      <div class="promo-usage-body" id="promoUsageMainBody">
+        <p style="font-size:12.5px;color:#8a8a8a;margin-bottom:10px;">Saare promo codes aur unhe kaun-kaun use kiya.</p>
+        <div class="promo-usage-list" id="promoUsageList"></div>
+      </div>
+    </div>
+
+    <div class="admin-card">
+      <div class="history-header" onclick="togglePendingOrders()">
+        <div>
+          <h3>📋 Pending Orders <span id="pendingCount" style="color:#d32f2f;font-size:14px;">(0)</span></h3>
+          <p>Approve dabao aur key assign karo.</p>
+        </div>
+        <span id="pendingArrow" class="history-arrow">▼</span>
+      </div>
+      <div id="pendingOrdersList" style="display:none;margin-top:14px;"></div>
+    </div>
+
+    <div class="admin-card">
+      <div class="history-header" onclick="toggleOrderHistory()">
+        <div>
+          <h3>📜 Order History (Approved) <span id="orderHistoryCount" style="color:#4a7c59;font-size:14px;">(0)</span></h3>
+          <p>Naya order sabse upar · Purana neeche</p>
+        </div>
+        <span id="orderHistoryArrow" class="history-arrow">▼</span>
+      </div>
+      <div id="orderHistoryList" style="display:none;margin-top:14px;"></div>
+    </div>
+
+    <div class="admin-card">
+      <div class="history-header" onclick="toggleRejectedOrders()">
+        <div>
+          <h3>❌ Rejected Orders <span id="rejectedCount" style="color:#d32f2f;font-size:14px;">(0)</span></h3>
+          <p>Jin orders ka payment nahi mila.</p>
+        </div>
+        <span id="rejectedArrow" class="history-arrow">▼</span>
+      </div>
+      <div id="rejectedOrdersList" style="display:none;margin-top:14px;"></div>
+    </div>
+
+    <div class="admin-card">
+      <h3>📦 Product Management</h3>
+      <p style="font-size:12.5px;color:#8a8a8a;margin-bottom:10px;">Products dekhne ya edit karne ke liye button dabayein.</p>
+      <button onclick="openProductManager()">📦 Manage Products</button>
+    </div>
+
+    <div class="admin-card">
+      <h3>📊 Duration Rates (₹)</h3>
+      <p style="font-size:12.5px;color:#8a8a8a;margin-bottom:10px;">Saare rates dekhne aur edit karne ke liye button dabayein.</p>
+      <button onclick="openRateManager()">⚙️ Manage Duration Rates</button>
+    </div>
+
+    <div class="admin-card">
+      <h3>🔑 License Key Stock</h3>
+      <p style="font-size:13px;color:#6b6b6b;margin-bottom:10px;">Key ka duration select karein aur uske hisaab se key add karein.</p>
+      <label>License Key</label>
+      <input type="text" id="newLicenseKey" placeholder="e.g. GXD-A1B2-C3D4-E5F6">
+      <label>Duration</label>
+      <select id="newKeyDuration">
+        <option value="1 Hour">1 Hour</option>
+        <option value="6 Hours">6 Hours</option>
+        <option value="12 Hours">12 Hours</option>
+        <option value="1 Day">1 Day</option>
+        <option value="3 Days">3 Days</option>
+        <option value="7 Days">7 Days</option>
+        <option value="15 Days">15 Days</option>
+        <option value="30 Days">30 Days</option>
+      </select>
+      <button onclick="addLicenseKey()">➕ Add Key to Stock</button>
+      <div id="keyStockList"></div>
+    </div>
+
+    <!-- ===== PROMO CODES (Main Collapsible) ===== -->
+    <div class="admin-card">
+      <div class="promo-codes-header" onclick="togglePromoCodes()">
+        <h3>🎟️ Promo Codes</h3>
+        <span class="pch-arrow" id="promoCodesArrow">▼</span>
+      </div>
+      <div class="promo-codes-body" id="promoCodesBody">
+        <p style="font-size:12.5px;color:#8a8a8a;margin-bottom:10px;">Naya promo banayein ya kisi bhi promo par click karke edit karein.</p>
+        <button onclick="openPromoEdit(-1)">➕ Create New Promo</button>
+        <div id="promoList" style="margin-top:14px;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ===== Change Password Popup ===== -->
+<div class="rate-edit-popup" id="changePasswordPopup">
+  <div class="rate-edit-box" style="max-width:360px;text-align:left;">
+    <h3 style="text-align:center;color:#4a2e4a;font-size:18px;margin-bottom:16px;">🔐 Change Password</h3>
+    <label style="display:block;font-size:12px;font-weight:700;color:#6b6b6b;margin-bottom:6px;text-transform:uppercase;">Old Password</label>
+    <input type="password" id="oldPassword" placeholder="Enter old password" style="width:100%;padding:12px;background:#faf8f3;border:1.5px solid #f0ebe0;border-radius:10px;font-size:14px;outline:none;margin-bottom:12px;text-align:left;">
+    <label style="display:block;font-size:12px;font-weight:700;color:#6b6b6b;margin-bottom:6px;text-transform:uppercase;">New Password</label>
+    <input type="password" id="newPassword" placeholder="Enter new password" style="width:100%;padding:12px;background:#faf8f3;border:1.5px solid #f0ebe0;border-radius:10px;font-size:14px;outline:none;margin-bottom:12px;text-align:left;">
+    <label style="display:block;font-size:12px;font-weight:700;color:#6b6b6b;margin-bottom:6px;text-transform:uppercase;">Confirm Password</label>
+    <input type="password" id="confirmPassword" placeholder="Confirm new password" style="width:100%;padding:12px;background:#faf8f3;border:1.5px solid #f0ebe0;border-radius:10px;font-size:14px;outline:none;margin-bottom:12px;text-align:left;">
+    <div class="btn-row" style="display:flex;gap:10px;">
+      <button class="btn-cancel" onclick="changePasswordClose()" style="flex:1;padding:14px;background:#f0ebe0;color:#4a3b3b;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;">Cancel</button>
+      <button class="btn-save" onclick="saveNewPassword()" style="flex:1;padding:14px;background:#4a7c59;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Product Manager Popup ===== -->
+<div class="rate-edit-popup" id="productManagerPopup">
+  <div class="rate-edit-box" style="max-width:360px;text-align:left;">
+    <h3 style="text-align:center;color:#4a2e4a;font-size:18px;margin-bottom:16px;">Manage Products</h3>
+    <div id="productManagerList"></div>
+    <div class="btn-row" style="display:flex;gap:10px;margin-top:16px;">
+      <button onclick="openProductAdd()" style="flex:1;padding:14px;background:#4a7c59;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;">➕ Add New</button>
+      <button class="btn-cancel" onclick="closeProductManager()" style="flex:1;padding:14px;background:#f0ebe0;color:#4a3b3b;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Product Add/Edit Popup ===== -->
+<div class="rate-edit-popup" id="productEditPopup">
+  <div class="rate-edit-box">
+    <h3 id="productEditTitle">Add Product</h3>
+    <p>Enter product name</p>
+    <input type="text" id="productEditInput" placeholder="e.g. New Loader">
+    <div class="btn-row">
+      <button class="btn-cancel" onclick="closeProductEdit()">Cancel</button>
+      <button class="btn-save" onclick="saveProductEdit()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Rate Manager Popup ===== -->
+<div class="rate-edit-popup" id="rateManagerPopup">
+  <div class="rate-edit-box" style="max-width:360px;text-align:left;">
+    <h3 style="text-align:center;color:#4a2e4a;font-size:18px;margin-bottom:16px;">Manage Duration Rates</h3>
+    <div id="rateManagerList"></div>
+    <div class="btn-row" style="display:flex;gap:10px;margin-top:16px;">
+      <button class="btn-cancel" onclick="closeRateManager()" style="flex:1;padding:14px;background:#f0ebe0;color:#4a3b3b;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Rate Edit Popup ===== -->
+<div class="rate-edit-popup" id="rateEditPopup">
+  <div class="rate-edit-box">
+    <h3 id="rateEditTitle">Edit Rate</h3>
+    <p>Enter new price in ₹</p>
+    <input type="number" id="rateEditInput" min="0" placeholder="0">
+    <div class="btn-row">
+      <button class="btn-cancel" onclick="closeRateEdit()">Cancel</button>
+      <button class="btn-save" onclick="saveRateEdit()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Promo Edit Popup ===== -->
+<div class="rate-edit-popup" id="promoEditPopup">
+  <div class="rate-edit-box" style="max-width:360px;text-align:left;">
+    <h3 id="promoEditTitle" style="text-align:center;color:#4a2e4a;font-size:18px;margin-bottom:16px;">Create Promo Code</h3>
+    <label style="display:block;font-size:12px;font-weight:700;color:#6b6b6b;margin-bottom:6px;text-transform:uppercase;">Promo Code</label>
+    <input type="text" id="editPromoCode" placeholder="e.g. SAVE5" style="width:100%;padding:12px;background:#faf8f3;border:1.5px solid #f0ebe0;border-radius:10px;font-size:14px;outline:none;margin-bottom:12px;">
+    <label style="display:block;font-size:12px;font-weight:700;color:#6b6b6b;margin-bottom:6px;text-transform:uppercase;">Discount (₹)</label>
+    <input type="number" id="editPromoDiscount" placeholder="e.g. 5" style="width:100%;padding:12px;background:#faf8f3;border:1.5px solid #f0ebe0;border-radius:10px;font-size:14px;outline:none;margin-bottom:12px;">
+    <label style="display:block;font-size:12px;font-weight:700;color:#6b6b6b;margin-bottom:6px;text-transform:uppercase;">Max Users</label>
+    <input type="number" id="editPromoMaxUsers" placeholder="e.g. 10" style="width:100%;padding:12px;background:#faf8f3;border:1.5px solid #f0ebe0;border-radius:10px;font-size:14px;outline:none;margin-bottom:12px;">
+    <label style="display:block;font-size:12px;font-weight:700;color:#6b6b6b;margin-bottom:6px;text-transform:uppercase;">Expiry (Din)</label>
+    <select id="editPromoDays" style="width:100%;padding:12px;background:#faf8f3;border:1.5px solid #f0ebe0;border-radius:10px;font-size:14px;outline:none;margin-bottom:12px;">
+      <option value="1">1 Din</option>
+      <option value="2">2 Din</option>
+      <option value="3">3 Din</option>
+      <option value="5">5 Din</option>
+      <option value="7">7 Din (1 Week)</option>
+      <option value="10">10 Din</option>
+      <option value="15">15 Din</option>
+      <option value="30" selected>30 Din (1 Month)</option>
+    </select>
+    <div class="btn-row" style="display:flex;gap:10px;">
+      <button class="btn-cancel" onclick="closePromoEdit()" style="flex:1;padding:14px;background:#f0ebe0;color:#4a3b3b;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;">Cancel</button>
+      <button class="btn-save" onclick="savePromoEdit()" style="flex:1;padding:14px;background:#4a7c59;color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ALL ORDERS POPUP ===== -->
+<div class="rate-edit-popup" id="allOrdersPopup">
+  <div class="rate-edit-box" style="max-width:420px;text-align:left;">
+    <h3 style="text-align:center;color:#4a2e4a;font-size:18px;margin-bottom:16px;">📋 All Orders</h3>
+    <input type="text" id="allOrdersSearch" placeholder="🔍 Search by name, phone, order ID..." oninput="filterAllOrders()" style="width:100%;padding:12px;border:1.5px solid #f0ebe0;border-radius:10px;font-size:14px;outline:none;background:#faf8f3;margin-bottom:12px;">
+    <div id="allOrdersList" style="max-height:55vh;overflow-y:auto;"></div>
+    <div class="btn-row" style="display:flex;gap:10px;margin-top:16px;">
+      <button class="btn-cancel" onclick="closeAllOrders()" style="flex:1;padding:14px;background:#f0ebe0;color:#4a3b3b;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Toast & Confirm ===== -->
+<div id="toast"></div>
+<div id="customConfirm">
+  <div class="confirm-box">
+    <p id="confirmMsg"></p>
+    <div class="btn-row">
+      <button class="btn-no" onclick="confirmNo()">Cancel</button>
+      <button class="btn-yes" onclick="confirmYes()">Yes</button>
+    </div>
+  </div>
+</div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, doc, getDocs, getDoc, setDoc, addDoc, updateDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+const firebaseConfig = {
+  apiKey: "AIzaSyAZIFhtaItfF8g0sxJbJkVjULjo72mLg_Y",
+  authDomain: "gxdlsahuopstore.firebaseapp.com",
+  projectId: "gxdlsahuopstore",
+  storageBucket: "gxdlsahuopstore.firebasestorage.app",
+  messagingSenderId: "714005149951",
+  appId: "1:714005149951:web:5b62e0473e653f9756f4ca"
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+window.FS = { db, collection, doc, getDocs, getDoc, setDoc, addDoc, updateDoc, deleteDoc, onSnapshot };
+window.dispatchEvent(new Event('firestore-ready'));
+</script>
+
+<script>
+const DEFAULT_USER = "GxdL๛SAHU〆OP";
+const DEFAULT_PASS = "&P00RKILLERz&";
+function getAdminUser() { return localStorage.getItem('adminUser') || DEFAULT_USER; }
+function getAdminPass() { return localStorage.getItem('adminPass') || DEFAULT_PASS; }
+let products = [], rates = [], promos = [], keyStock = [], pendingOrders = [];
+let currentRateDocId = null, currentPromoDocId = null, currentProductDocId = null;
+let fsReady = false;
+
+let toastTimer = null;
+function showToast(msg, type = 'info') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'show ' + type;
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { t.className = ''; }, 2800);
+}
+let confirmCallback = null;
+function showConfirm(msg, onYes, onNo) {
+  document.getElementById('confirmMsg').textContent = msg;
+  document.getElementById('customConfirm').classList.add('show');
+  confirmCallback = { onYes, onNo };
+}
+function confirmYes() {
+  document.getElementById('customConfirm').classList.remove('show');
+  if (confirmCallback && confirmCallback.onYes) confirmCallback.onYes();
+  confirmCallback = null;
+}
+function confirmNo() {
+  document.getElementById('customConfirm').classList.remove('show');
+  if (confirmCallback && confirmCallback.onNo) confirmCallback.onNo();
+  confirmCallback = null;
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({ top:0, behavior:'instant' });
+}
+
+async function manualRefresh() {
+  showToast('🔄 Refreshing...', 'info');
+  try {
+    const { db, collection, getDocs } = window.FS;
+    const snap = await getDocs(collection(db, 'orders'));
+    pendingOrders = snap.docs.map(d => ({ docId: d.id, ...d.data() }));
+    renderPendingOrders();
+    renderOrderHistory();
+    renderRejectedOrders();
+    renderPromoUsage();
+    updateStats();
+    showToast('✅ ' + pendingOrders.length + ' orders loaded!', 'success');
+  } catch (e) {
+    showToast('❌ Refresh failed: ' + e.message, 'error');
+  }
+}
+
+setInterval(async () => {
+  const dash = document.getElementById('screen-dashboard');
+  if (!dash || !dash.classList.contains('active')) return;
+  if (!window.FS) return;
+  try {
+    const { db, collection, getDocs } = window.FS;
+    const snap = await getDocs(collection(db, 'orders'));
+    const newOrders = snap.docs.map(d => ({ docId: d.id, ...d.data() }));
+    if (newOrders.length !== pendingOrders.length) {
+      pendingOrders = newOrders;
+      renderPendingOrders();
+      renderOrderHistory();
+      renderRejectedOrders();
+      renderPromoUsage();
+      updateStats();
+      showToast('🔔 Naya order aaya!', 'info');
+    }
+  } catch (e) {}
+}, 15000);
+
+function initFirestoreListeners() {
+  if (fsReady) return;
+  if (!window.FS) return;
+  fsReady = true;
+  const { db, collection, onSnapshot } = window.FS;
+  onSnapshot(collection(db, 'products'), snap => {
+    products = snap.docs.map(d => ({ docId:d.id, ...d.data() }));
+    if (products.length === 0) products = [{ id:1, name:'Server' }];
+    if (document.getElementById('productManagerPopup').classList.contains('show')) openProductManager();
+  }, err => console.error(err));
+  onSnapshot(collection(db, 'rates'), snap => {
+    rates = snap.docs.map(d => ({ docId:d.id, ...d.data() }));
+    const order = ['1 Hour','6 Hours','12 Hours','1 Day','3 Days','7 Days','15 Days','30 Days'];
+    rates.sort((a,b) => order.indexOf(a.time) - order.indexOf(b.time));
+    if (document.getElementById('rateManagerPopup').classList.contains('show')) openRateManager();
+  }, err => console.error(err));
+  onSnapshot(collection(db, 'promos'), snap => {
+    promos = snap.docs.map(d => ({ docId:d.id, ...d.data() }));
+    renderPromos();
+    renderPromoUsage();
+  }, err => console.error(err));
+  onSnapshot(collection(db, 'keyStock'), snap => {
+    keyStock = snap.docs.map(d => ({ docId:d.id, ...d.data() }));
+    renderKeyStock();
+    updateStats();
+  }, err => console.error(err));
+  onSnapshot(collection(db, 'orders'), snap => {
+    pendingOrders = snap.docs.map(d => ({ docId:d.id, ...d.data() }));
+    renderPendingOrders();
+    renderOrderHistory();
+    renderRejectedOrders();
+    renderPromoUsage();
+    updateStats();
+    if (document.getElementById('allOrdersPopup').classList.contains('show')) openAllOrders();
+  }, err => console.error(err));
+}
+window.addEventListener('firestore-ready', initFirestoreListeners);
+if (window.FS) initFirestoreListeners();
+
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const user = document.getElementById('adminUser').value.trim();
+  const pass = document.getElementById('adminPass').value.trim();
+  const error = document.getElementById('loginError');
+  if (user === getAdminUser() && pass === getAdminPass()) {
+    error.style.display = 'none';
+    if (document.getElementById('rememberDevice').checked) {
+      localStorage.setItem('adminLoggedIn', 'true');
+    } else {
+      sessionStorage.setItem('adminLoggedIn', 'true');
+    }
+    showScreen('screen-dashboard');
+    setTimeout(() => initFirestoreListeners(), 100);
+  } else {
+    error.style.display = 'block';
+    setTimeout(() => { error.style.display = 'none'; }, 3000);
+  }
+});
+window.addEventListener('load', () => {
+  const loggedIn = localStorage.getItem('adminLoggedIn') || sessionStorage.getItem('adminLoggedIn');
+  if (loggedIn === 'true') {
+    showScreen('screen-dashboard');
+    setTimeout(() => initFirestoreListeners(), 100);
+  } else {
+    showScreen('screen-login');
+  }
+});
+
+function updateStats() {
+  const totalOrders = pendingOrders.length;
+  const approvedOrders = pendingOrders.filter(o => o.status === 'approved');
+  const revenue = approvedOrders.reduce((sum, o) => sum + Number(o.amount || 0), 0);
+  const pending = pendingOrders.filter(o => o.status === 'pending').length;
+  const availableKeys = keyStock.filter(k => !k.used).length;
+  const el1 = document.getElementById('statTotalOrders'); if (el1) el1.textContent = totalOrders;
+  const el2 = document.getElementById('statRevenue'); if (el2) el2.textContent = `₹${revenue.toFixed(0)}`;
+  const el3 = document.getElementById('statPending'); if (el3) el3.textContent = pending;
+  const el4 = document.getElementById('statKeys'); if (el4) el4.textContent = availableKeys;
+}
+
+function togglePendingOrders() {
+  const list = document.getElementById('pendingOrdersList');
+  const arrow = document.getElementById('pendingArrow');
+  if (list.style.display === 'none' || list.style.display === '') {
+    list.style.display = 'block'; arrow.style.transform = 'rotate(180deg)';
+  } else {
+    list.style.display = 'none'; arrow.style.transform = 'rotate(0deg)';
+  }
+}
+function toggleOrderHistory() {
+  const list = document.getElementById('orderHistoryList');
+  const arrow = document.getElementById('orderHistoryArrow');
+  if (list.style.display === 'none' || list.style.display === '') {
+    list.style.display = 'block'; arrow.style.transform = 'rotate(180deg)';
+  } else {
+    list.style.display = 'none'; arrow.style.transform = 'rotate(0deg)';
+  }
+}
+function toggleRejectedOrders() {
+  const list = document.getElementById('rejectedOrdersList');
+  const arrow = document.getElementById('rejectedArrow');
+  if (list.style.display === 'none' || list.style.display === '') {
+    list.style.display = 'block'; arrow.style.transform = 'rotate(180deg)';
+  } else {
+    list.style.display = 'none'; arrow.style.transform = 'rotate(0deg)';
+  }
+}
+
+function togglePromoUsageMain() {
+  const body = document.getElementById('promoUsageMainBody');
+  const arrow = document.getElementById('promoUsageMainArrow');
+  if (!body || !arrow) return;
+  body.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+function togglePromoCodes() {
+  const body = document.getElementById('promoCodesBody');
+  const arrow = document.getElementById('promoCodesArrow');
+  if (!body || !arrow) return;
+  body.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+function togglePromoUsers(id) {
+  const body = document.getElementById(id + '_body');
+  const arrow = document.getElementById(id + '_arrow');
+  if (!body || !arrow) return;
+  body.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+                                      </script>
+                                      <script>
+/* ============ FORMAT TIME LEFT ============ */
+function formatTimeLeft(ms) {
+  if (ms <= 0) return 'Expired';
+  const totalSec = Math.floor(ms / 1000);
+  const days = Math.floor(totalSec / 86400);
+  const hours = Math.floor((totalSec % 86400) / 3600);
+  const mins = Math.floor((totalSec % 3600) / 60);
+  const secs = totalSec % 60;
+  if (days > 0) return `${days}d ${hours}h ${mins}m left`;
+  if (hours > 0) return `${hours}h ${mins}m left`;
+  if (mins > 0) return `${mins}m ${secs}s left`;
+  return `${secs}s left`;
+}
+
+/* ============ RENDER PENDING ORDERS ============ */
+function renderPendingOrders() {
+  const poList = document.getElementById('pendingOrdersList');
+  if (!poList) return;
+  poList.innerHTML = '';
+  const active = pendingOrders.filter(o => o.status === 'pending');
+  const countEl = document.getElementById('pendingCount');
+  if (countEl) countEl.textContent = `(${active.length})`;
+  if (active.length === 0) {
+    poList.innerHTML = '<p style="color:#999;font-size:13px;text-align:center;padding:20px 0;">No pending orders.</p>';
+    return;
+  }
+  active.forEach(o => {
+    const timeAgo = Math.floor((Date.now() - Number(o.timestamp || 0)) / 60000);
+    const claimed = o.paymentClaimed === true;
+    const claimedBadge = claimed 
+      ? '<span style="background:#4a7c59;color:#fff;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:700;margin-left:6px;">💰 CLAIMED</span>' 
+      : '<span style="background:#f59e0b;color:#fff;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:700;margin-left:6px;">⏳ WAITING</span>';
+    poList.innerHTML += `<div class="product-item" style="flex-direction:column;align-items:flex-start;gap:10px;${claimed ? 'border:2px solid #4a7c59;' : ''}"><div style="width:100%;"><strong>👤 ${o.userName || 'Unknown'}</strong>${claimedBadge}<small>📱 ${o.userPhone || 'N/A'}</small><small>📟 Device: ${o.userDevice || 'N/A'} | Auto: ${o.autoDevice || 'N/A'}</small><small>🆔 ${o.orderId || 'N/A'}</small><small>${o.product || 'N/A'} — ${o.duration || 'N/A'} — ₹${Number(o.amount || 0).toFixed(2)}</small>${o.promoCode ? `<small style="color:#4a7c59;font-weight:700;">🎟️ Promo: ${o.promoCode} (₹${Number(o.discount||0).toFixed(2)} off)</small>` : ''}<small>${timeAgo} min ago</small></div><div class="item-actions" style="width:100%;flex-direction:column;gap:6px;"><div style="display:flex;gap:6px;width:100%;"><button class="edit-btn" style="flex:1;" onclick="approveOrder('${o.docId}')">✅ Approve</button><button class="delete-btn" style="flex:1;" onclick="rejectOrder('${o.docId}')">❌ Reject</button></div><div style="display:flex;gap:6px;width:100%;"><button onclick="extendTimer('${o.docId}', 60)" style="flex:1;background:#f59e0b;color:#fff;border:none;padding:8px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">⏰ +1m</button><button onclick="extendTimer('${o.docId}', 120)" style="flex:1;background:#f59e0b;color:#fff;border:none;padding:8px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">⏰ +2m</button><button onclick="extendTimer('${o.docId}', 300)" style="flex:1;background:#f59e0b;color:#fff;border:none;padding:8px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">⏰ +5m</button></div></div></div>`;
+  });
+}
+
+/* ============ RENDER ORDER HISTORY ============ */
+function renderOrderHistory() {
+  const list = document.getElementById('orderHistoryList');
+  if (!list) return;
+  list.innerHTML = '';
+  const approved = pendingOrders.filter(o => o.status === 'approved').sort((a, b) => {
+    const tA = Number(a.approvedAt) || Number(a.timestamp) || 0;
+    const tB = Number(b.approvedAt) || Number(b.timestamp) || 0;
+    return tB - tA;
+  });
+  const countEl = document.getElementById('orderHistoryCount');
+  if (countEl) countEl.textContent = `(${approved.length})`;
+  if (approved.length === 0) {
+    list.innerHTML = '<p style="color:#999;font-size:13px;text-align:center;padding:20px 0;">Abhi tak koi order approve nahi hua.</p>';
+    return;
+  }
+  approved.forEach(o => {
+    const date = new Date(Number(o.approvedAt) || Number(o.timestamp)).toLocaleString('en-IN', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
+    list.innerHTML += `<div class="history-item" style="border:1.5px solid #bbf7d0;"><div class="hi-header"><span class="hi-order">👤 ${o.userName || 'Unknown'}</span><span class="hi-status">✅ PAID</span></div><div class="hi-details" style="margin-top:4px;"><span style="font-size:11px;">📱 ${o.userPhone || 'N/A'}</span></div><div class="hi-details" style="margin-top:4px;"><span style="font-size:11px;">📟 ${o.userDevice || 'N/A'}</span></div><div class="hi-details" style="margin-top:4px;"><span style="font-size:11px;">🆔 ${o.orderId || 'N/A'}</span></div><div class="hi-details" style="margin-top:6px;"><span>📦 ${o.product || 'N/A'}</span></div><div class="hi-details" style="margin-top:4px;"><span>⏱️ ${o.duration || 'N/A'}</span><span><strong>💰 ₹${Number(o.amount || 0).toFixed(2)}</strong></span></div>${o.promoCode ? `<div class="hi-details" style="margin-top:4px;"><span style="color:#4a7c59;font-size:11px;font-weight:700;">🎟️ Promo: ${o.promoCode} (Saved ₹${Number(o.discount||0).toFixed(2)})</span></div>` : ''}<div class="hi-details" style="margin-top:4px;"><span style="font-size:11px;color:#8a8a8a;">🕐 ${date}</span></div>${o.licenseKey ? `<div class="hi-key" style="background:#f0fdf4;border-radius:8px;padding:10px;margin-top:8px;"><div style="font-size:11px;color:#4a7c59;font-weight:700;margin-bottom:4px;">🔑 LICENSE KEY</div><div style="font-family:monospace;font-size:13px;color:#4a2e4a;font-weight:700;word-break:break-all;">${o.licenseKey}</div><div style="font-size:11px;color:#8a8a8a;margin-top:6px;">⏱️ Duration: ${o.keyDuration || o.duration || 'N/A'}</div></div>` : '<div style="font-size:12px;color:#d32f2f;margin-top:8px;">⚠️ Key assign nahi hui</div>'}</div>`;
+  });
+}
+
+/* ============ RENDER REJECTED ORDERS ============ */
+function renderRejectedOrders() {
+  const list = document.getElementById('rejectedOrdersList');
+  if (!list) return;
+  list.innerHTML = '';
+  const rejected = pendingOrders.filter(o => o.status === 'rejected').sort((a,b) => (b.rejectedAt||0) - (a.rejectedAt||0));
+  const countEl = document.getElementById('rejectedCount');
+  if (countEl) countEl.textContent = `(${rejected.length})`;
+  if (rejected.length === 0) {
+    list.innerHTML = '<p style="color:#999;font-size:13px;text-align:center;padding:20px 0;">No rejected orders.</p>';
+    return;
+  }
+  rejected.forEach(o => {
+    const date = new Date(Number(o.rejectedAt) || Number(o.timestamp)).toLocaleString('en-IN');
+    list.innerHTML += `<div class="history-item" style="border-color:#f8d7d7;background:#fef5f5;"><div class="hi-header"><span class="hi-order">👤 ${o.userName || 'Unknown'}</span><span class="hi-status" style="background:#fde8e8;color:#d32f2f;">❌ REJECTED</span></div><div class="hi-details" style="margin-top:4px;"><span style="font-size:11px;">📱 ${o.userPhone || 'N/A'}</span></div><div class="hi-details"><span>${o.product} — ${o.duration}</span><span><strong>₹${Number(o.amount).toFixed(2)}</strong></span></div><div class="hi-details" style="margin-top:4px;"><span style="font-size:11px;">${date}</span></div><button onclick="deleteRejectedOrder('${o.docId}')" style="margin-top:8px;width:100%;padding:8px;background:#d32f2f;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;">🗑 Delete Permanently</button></div>`;
+  });
+}
+
+/* ============ APPROVE ORDER ============ */
+async function approveOrder(docId) {
+  const order = pendingOrders.find(o => o.docId === docId);
+  if (!order) return;
+  const result = await assignKeyFromStock(order.duration);
+  if (!result) { showToast('❌ Key stock khatam!', 'error'); return; }
+  const { db, doc, updateDoc } = window.FS;
+  await updateDoc(doc(db, 'orders', docId), { status:'approved', licenseKey:result.key, keyDuration:result.duration, approvedAt:Date.now() });
+  showToast('✅ Approved! Key: ' + result.key, 'success');
+}
+
+/* ============ REJECT ORDER ============ */
+function rejectOrder(docId) {
+  showConfirm('❌ Reject this order?\n\nUser ko "Payment not received" message dikhega.', async () => {
+    const { db, doc, updateDoc } = window.FS;
+    await updateDoc(doc(db, 'orders', docId), { status: 'rejected', rejectedAt: Date.now() });
+    showToast('✅ Order rejected!', 'success');
+  });
+}
+
+/* ============ DELETE REJECTED ORDER ============ */
+function deleteRejectedOrder(docId) {
+  showConfirm('🗑 Delete this rejected order permanently?', async () => {
+    const { db, doc, deleteDoc } = window.FS;
+    await deleteDoc(doc(db, 'orders', docId));
+    showToast('✅ Deleted!', 'success');
+  });
+}
+
+/* ============ ASSIGN KEY FROM STOCK ============ */
+async function assignKeyFromStock(orderDuration) {
+  let available = keyStock.find(k => !k.used && k.duration === orderDuration) || keyStock.find(k => !k.used);
+  if (!available) return null;
+  const { db, doc, updateDoc } = window.FS;
+  await updateDoc(doc(db, 'keyStock', available.docId), { used: true, assignedAt: Date.now() });
+  return { key: available.key, duration: available.duration };
+}
+
+/* ============ EXTEND TIMER ============ */
+async function extendTimer(docId, secondsToAdd) {
+  const order = pendingOrders.find(o => o.docId === docId);
+  if (!order) { showToast('❌ Order nahi mila!', 'error'); return; }
+  const currentExtra = Number(order.extraTimeSeconds || 0);
+  const newExtra = currentExtra + secondsToAdd;
+  try {
+    const { db, doc, updateDoc } = window.FS;
+    await updateDoc(doc(db, 'orders', docId), { extraTimeSeconds: newExtra });
+    showToast('✅ Timer +' + (secondsToAdd/60) + ' min badha diya!', 'success');
+  } catch(e) { showToast('❌ Failed: ' + e.message, 'error'); }
+}
+
+/* ============ RESET ORDER HISTORY ============ */
+function resetOrderHistory() {
+  showConfirm('⚠️ Are you sure?\n\nYe saare orders delete kar dega!\n\n✅ Available Keys SAFE rahengi.', () => {
+    showConfirm('🚨 FINAL CONFIRMATION!\n\nKya aap sach me saare orders delete karna chahte ho?', async () => {
+      try {
+        const { db, collection, getDocs, doc, deleteDoc } = window.FS;
+        const snap = await getDocs(collection(db, 'orders'));
+        let deleted = 0;
+        for (const d of snap.docs) { await deleteDoc(doc(db, 'orders', d.id)); deleted++; }
+        showToast('✅ ' + deleted + ' orders delete ho gaye.', 'success');
+      } catch (e) { showToast('❌ Reset failed: ' + e.message, 'error'); }
+    });
+  });
+}
+      </script>
+      <script>
+/* ============ RENDER PROMO USAGE (Dropdown Users) ============ */
+function renderPromoUsage() {
+  const container = document.getElementById('promoUsageList');
+  if (!container) return;
+  container.innerHTML = '';
+  if (promos.length === 0) {
+    container.innerHTML = '<p class="promo-empty">Koi promo code nahi hai.</p>';
+    return;
+  }
+  const now = Date.now();
+  promos.forEach(p => {
+    const expiry = Number(p.expiry || 0);
+    const isExpired = expiry <= now;
+    const usedCount = Number(p.usedCount || 0);
+    const maxUsers = Number(p.maxUsers || 0);
+    const isFull = usedCount >= maxUsers;
+    let badgeClass = 'active';
+    let badgeText = '✅ ACTIVE';
+    if (isExpired) { badgeClass = 'expired'; badgeText = '❌ EXPIRED'; }
+    else if (isFull) { badgeClass = 'full'; badgeText = '🚫 FULL'; }
+    const users = pendingOrders.filter(o => o.promoCode === p.code).sort((a, b) => Number(b.timestamp || 0) - Number(a.timestamp || 0));
+    let usersHtml = '';
+    if (users.length === 0) {
+      usersHtml = '<p style="font-size:11.5px;color:#999;text-align:center;padding:6px 0;">Abhi tak kisi ne use nahi kiya.</p>';
+    } else {
+      usersHtml = '<div class="promo-users-list">';
+      users.forEach((u, i) => {
+        const date = new Date(Number(u.timestamp) || Date.now()).toLocaleString('en-IN', { day:'numeric', month:'short', hour:'2-digit', minute:'2-digit', hour12:true });
+        usersHtml += `<div class="promo-user-item"><span class="pui-name">${i+1}. ${u.userName || 'Anonymous'}</span><span class="pui-phone">📱 ${u.userPhone || '—'}</span><span class="pui-phone">📟 ${u.userDevice || '—'}</span><span class="pui-order">🆔 ${u.orderId}</span><span class="pui-date">📅 ${date}</span></div>`;
+      });
+      usersHtml += '</div>';
+    }
+    let expiryText, expiryColor;
+    if (isExpired) {
+      const ago = now - expiry;
+      expiryText = `${formatTimeLeft(ago).replace('left','pehle expire')}`;
+      expiryColor = 'red';
+    } else {
+      expiryText = formatTimeLeft(expiry - now);
+      expiryColor = 'green';
+    }
+    const safeId = 'promo_' + p.docId;
+    container.innerHTML += `<div class="promo-usage-card ${isExpired ? 'expired' : ''}"><div class="promo-usage-top"><span class="promo-usage-code">🎟️ ${p.code}</span><span class="promo-usage-badge ${badgeClass}">${badgeText}</span></div><div class="promo-usage-info"><div class="pui-row"><span class="pui-label">💰 Discount:</span><span class="pui-value green">₹${Number(p.discount || 0).toFixed(2)} off</span></div><div class="pui-row"><span class="pui-label">👥 Used:</span><span class="pui-value ${isFull ? 'orange' : ''}">${usedCount} / ${maxUsers} users</span></div><div class="pui-row"><span class="pui-label">📅 Expiry:</span><span class="pui-value ${expiryColor}">${expiryText}</span></div></div><div class="promo-users-header" onclick="togglePromoUsers('${safeId}')"><span class="promo-users-title" style="margin:0;">👤 USERS NE USE KIYA (${users.length}):</span><span class="puh-arrow" id="${safeId}_arrow">▼</span></div><div class="promo-users-body" id="${safeId}_body">${usersHtml}</div></div>`;
+  });
+}
+setInterval(() => { if (document.getElementById('promoUsageList')) renderPromoUsage(); }, 1000);
+
+/* ============ ALL ORDERS POPUP ============ */
+function openAllOrders() {
+  const list = document.getElementById('allOrdersList');
+  if (!list) return;
+  const search = (document.getElementById('allOrdersSearch').value || '').toLowerCase().trim();
+  list.innerHTML = '';
+  let allOrders = [...pendingOrders].sort((a, b) => (Number(b.timestamp) || 0) - (Number(a.timestamp) || 0));
+  if (search) {
+    allOrders = allOrders.filter(o => {
+      const name = (o.userName || '').toLowerCase();
+      const phone = (o.userPhone || '').toLowerCase();
+      const orderId = (o.orderId || '').toLowerCase();
+      const product = (o.product || '').toLowerCase();
+      const device = (o.userDevice || '').toLowerCase();
+      return name.includes(search) || phone.includes(search) || orderId.includes(search) || product.includes(search) || device.includes(search);
+    });
+  }
+  if (allOrders.length === 0) {
+    list.innerHTML = '<p style="color:#999;font-size:13px;text-align:center;padding:20px 0;">' + (search ? 'Koi order match nahi hua.' : 'Koi order nahi hai.') + '</p>';
+    document.getElementById('allOrdersPopup').classList.add('show');
+    return;
+  }
+  allOrders.forEach(o => {
+    let statusBadge = '';
+    if (o.status === 'approved') statusBadge = '<span class="ofc-status approved">✅ APPROVED</span>';
+    else if (o.status === 'rejected') statusBadge = '<span class="ofc-status rejected">❌ REJECTED</span>';
+    else statusBadge = '<span class="ofc-status pending">⏳ PENDING</span>';
+    const date = new Date(Number(o.timestamp) || 0).toLocaleString('en-IN', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
+    let promoHtml = '';
+    if (o.promoCode) {
+      const orig = Number(o.originalPrice || 0);
+      const disc = Number(o.discount || 0);
+      const finalAmt = Number(o.amount || 0);
+      const displayOrig = orig > 0 ? orig : (finalAmt + disc);
+      const saved = disc > 0 ? disc : (displayOrig - finalAmt);
+      promoHtml = `<div class="ofc-promo">🎟️ Promo: <strong>${o.promoCode}</strong> — Saved ₹${saved.toFixed(2)}<br>💰 <span style="text-decoration:line-through;color:#999;">₹${displayOrig.toFixed(2)}</span> → <span style="font-size:14px;font-weight:800;">₹${finalAmt.toFixed(2)}</span></div>`;
+    }
+    const keyHtml = (o.status === 'approved' && o.licenseKey) ? `<div class="ofc-key">🔑 ${o.licenseKey}<br><span style="font-size:11px;color:#8a8a8a;">⏱️ ${o.keyDuration || o.duration}</span></div>` : (o.status === 'approved' ? '<div class="ofc-key empty">⚠️ Key not assigned</div>' : (o.status === 'pending' ? '<div class="ofc-key empty" style="color:#c77700;">⏳ Key pending approval</div>' : '<div class="ofc-key empty">❌ Order rejected</div>'));
+    const customerHtml = (o.userName || o.userPhone) ? `<div class="ofc-row"><span class="ofc-label">👤 Customer:</span><span class="ofc-value">${o.userName || '—'}</span></div><div class="ofc-row"><span class="ofc-label">📱 Phone:</span><span class="ofc-value">${o.userPhone || '—'}</span></div><div class="ofc-row"><span class="ofc-label">📟 Device:</span><span class="ofc-value">${o.userDevice || '—'}</span></div><div class="ofc-row"><span class="ofc-label">🔍 Auto:</span><span class="ofc-value" style="font-size:11px;color:#6b6b6b;">${o.autoDevice || '—'}</span></div>` : '';
+    list.innerHTML += `<div class="order-full-card"><div class="ofc-top"><span class="ofc-id">${o.orderId}</span>${statusBadge}</div>${customerHtml}<div class="ofc-row"><span class="ofc-label">Product:</span><span class="ofc-value">${o.product || '—'}</span></div><div class="ofc-row"><span class="ofc-label">Plan:</span><span class="ofc-value">${o.duration || '—'}</span></div><div class="ofc-row"><span class="ofc-label">Amount:</span><span class="ofc-value price">₹${Number(o.amount || 0).toFixed(2)}</span></div><div class="ofc-row"><span class="ofc-label">Date:</span><span class="ofc-value" style="font-size:12px;color:#6b6b6b;">${date}</span></div>${promoHtml}${keyHtml}<button onclick="deleteOrderFromAll('${o.docId}')" style="margin-top:10px;width:100%;padding:10px;background:#d32f2f;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;">🗑 Delete Order</button></div>`;
+  });
+  document.getElementById('allOrdersPopup').classList.add('show');
+}
+function closeAllOrders() { document.getElementById('allOrdersPopup').classList.remove('show'); }
+function filterAllOrders() { openAllOrders(); }
+function deleteOrderFromAll(docId) {
+  showConfirm('🗑 Ye order delete karna hai?', async () => {
+    try {
+      const { db, doc, deleteDoc } = window.FS;
+      await deleteDoc(doc(db, 'orders', docId));
+      showToast('✅ Order deleted!', 'success');
+      setTimeout(() => { if (document.getElementById('allOrdersPopup').classList.contains('show')) openAllOrders(); }, 500);
+    } catch (e) { showToast('❌ Delete failed: ' + e.message, 'error'); }
+  });
+}
+      </script>
+      <script>
+/* ============ PRODUCT MANAGER ============ */
+function openProductManager() {
+  const list = document.getElementById('productManagerList');
+  list.innerHTML = '';
+  if (products.length === 0) {
+    list.innerHTML = '<p style="color:#999;font-size:13px;text-align:center;padding:20px 0;">No products yet.</p>';
+  } else {
+    products.forEach((p) => {
+      const safeName = (p.name || '').replace(/'/g, "\\'");
+      list.innerHTML += `<div class="rate-item" style="cursor:default;"><span class="rate-name">${p.name}</span><span style="display:flex;gap:6px;align-items:center;"><button onclick="openProductEdit('${p.docId}')" style="background:#4a7c59;color:#fff;border:none;padding:6px 10px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;">✎ Edit</button><button onclick="deleteProduct('${p.docId}', '${safeName}')" style="background:#d32f2f;color:#fff;border:none;padding:6px 10px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;">🗑 Del</button></span></div>`;
+    });
+  }
+  document.getElementById('productManagerPopup').classList.add('show');
+}
+function closeProductManager() { document.getElementById('productManagerPopup').classList.remove('show'); }
+function openProductAdd() {
+  currentProductDocId = null;
+  document.getElementById('productEditTitle').textContent = 'Add Product';
+  document.getElementById('productEditInput').value = '';
+  document.getElementById('productManagerPopup').classList.remove('show');
+  setTimeout(() => document.getElementById('productEditPopup').classList.add('show'), 200);
+}
+function openProductEdit(docId) {
+  currentProductDocId = docId;
+  const p = products.find(x => x.docId === docId);
+  document.getElementById('productEditTitle').textContent = 'Edit Product';
+  document.getElementById('productEditInput').value = p ? p.name : '';
+  document.getElementById('productManagerPopup').classList.remove('show');
+  setTimeout(() => document.getElementById('productEditPopup').classList.add('show'), 200);
+}
+function closeProductEdit() {
+  document.getElementById('productEditPopup').classList.remove('show');
+  currentProductDocId = null;
+  setTimeout(openProductManager, 200);
+}
+async function saveProductEdit() {
+  const name = document.getElementById('productEditInput').value.trim();
+  if (!name) { showToast('❌ Enter product name!', 'error'); return; }
+  const { db, doc, addDoc, updateDoc, collection } = window.FS;
+  if (!currentProductDocId) {
+    const newId = products.length ? Math.max(...products.map(p => p.id || 0)) + 1 : 1;
+    await addDoc(collection(db, 'products'), { id: newId, name });
+    showToast('✅ Product added!', 'success');
+  } else {
+    await updateDoc(doc(db, 'products', currentProductDocId), { name });
+    showToast('✅ Product updated!', 'success');
+  }
+  document.getElementById('productEditPopup').classList.remove('show');
+  currentProductDocId = null;
+  setTimeout(openProductManager, 200);
+}
+function deleteProduct(docId, name) {
+  showConfirm('Delete product "' + name + '"?', async () => {
+    try {
+      const { db, doc, deleteDoc } = window.FS;
+      await deleteDoc(doc(db, 'products', docId));
+      showToast('✅ Product deleted!', 'success');
+    } catch (e) { showToast('❌ Delete failed: ' + e.message, 'error'); }
+  });
+}
+
+/* ============ RATE MANAGER ============ */
+function openRateManager() {
+  const list = document.getElementById('rateManagerList');
+  list.innerHTML = '';
+  if (rates.length === 0) {
+    list.innerHTML = '<p style="color:#999;font-size:13px;text-align:center;padding:20px 0;">⏳ Loading rates...</p>';
+  } else {
+    rates.forEach((r) => {
+      list.innerHTML += `<div class="rate-item" onclick="openRateEdit('${r.docId}')"><span class="rate-name">${r.time}</span><span><span class="rate-price">₹${Number(r.price).toFixed(2)}</span><span class="rate-arrow">✎</span></span></div>`;
+    });
+  }
+  document.getElementById('rateManagerPopup').classList.add('show');
+}
+function closeRateManager() { document.getElementById('rateManagerPopup').classList.remove('show'); }
+function openRateEdit(docId) {
+  currentRateDocId = docId;
+  const r = rates.find(x => x.docId === docId);
+  document.getElementById('rateEditTitle').textContent = `Edit ${r.time}`;
+  document.getElementById('rateEditInput').value = r.price;
+  document.getElementById('rateManagerPopup').classList.remove('show');
+  setTimeout(() => document.getElementById('rateEditPopup').classList.add('show'), 200);
+}
+function closeRateEdit() {
+  document.getElementById('rateEditPopup').classList.remove('show');
+  currentRateDocId = null;
+  setTimeout(openRateManager, 200);
+}
+async function saveRateEdit() {
+  const val = Number(document.getElementById('rateEditInput').value);
+  if (isNaN(val) || val < 0) { showToast('❌ Enter a valid price!', 'error'); return; }
+  const { db, doc, updateDoc } = window.FS;
+  await updateDoc(doc(db, 'rates', currentRateDocId), { price: val });
+  closeRateEdit();
+  showToast('✅ Rate updated!', 'success');
+}
+
+/* ============ LICENSE KEY STOCK ============ */
+async function addLicenseKey() {
+  const keyInput = document.getElementById('newLicenseKey');
+  const durationInput = document.getElementById('newKeyDuration');
+  const key = keyInput.value.trim();
+  const duration = durationInput.value;
+  if (!key) { showToast('❌ Key daalein!', 'error'); return; }
+  if (keyStock.some(k => k.key.toLowerCase() === key.toLowerCase())) {
+    showToast('❌ Yeh key pehle se stock mein hai!', 'error'); return;
+  }
+  const { db, collection, addDoc } = window.FS;
+  await addDoc(collection(db, 'keyStock'), { key, duration, addedAt: Date.now(), used: false });
+  keyInput.value = '';
+  showToast('✅ Key added: ' + key, 'success');
+}
+
+function renderKeyStock() {
+  const list = document.getElementById('keyStockList');
+  if (!list) return;
+  list.innerHTML = '';
+  const available = keyStock.filter(k => !k.used);
+  const used = keyStock.filter(k => k.used);
+  available.sort((a, b) => (Number(b.addedAt) || 0) - (Number(a.addedAt) || 0));
+  used.sort((a, b) => (Number(b.assignedAt) || 0) - (Number(a.assignedAt) || 0));
+  list.innerHTML += `<div style="margin-top:10px;margin-bottom:10px;"><div onclick="toggleAvailableKeys()" style="display:flex;justify-content:space-between;align-items:center;background:#f0fdf4;border:1.5px solid #bbf7d0;border-radius:12px;padding:14px 16px;cursor:pointer;"><div><span style="font-size:14px;font-weight:700;color:#4a7c59;">✅ Available Keys</span><span style="font-size:13px;color:#4a7c59;font-weight:600;margin-left:6px;">(${available.length})</span></div><span id="availArrow" style="font-size:16px;color:#4a7c59;transition:transform 0.3s;">▼</span></div><div id="availableKeysList" style="display:none;margin-top:8px;"></div></div>`;
+  list.innerHTML += `<div style="margin-top:6px;"><div onclick="toggleUsedKeys()" style="display:flex;justify-content:space-between;align-items:center;background:#faf8f3;border:1.5px solid #f0ebe0;border-radius:12px;padding:14px 16px;cursor:pointer;"><div><span style="font-size:14px;font-weight:700;color:#8a8a8a;">📦 Used Keys</span><span style="font-size:13px;color:#8a8a8a;font-weight:600;margin-left:6px;">(${used.length})</span></div><span id="usedArrow" style="font-size:16px;color:#8a8a8a;transition:transform 0.3s;">▼</span></div><div id="usedKeysList" style="display:none;margin-top:8px;"></div></div>`;
+  const availList = document.getElementById('availableKeysList');
+  if (available.length === 0) {
+    availList.innerHTML = '<p style="color:#999;font-size:13px;text-align:center;padding:14px 0;">Koi available key nahi hai.</p>';
+  } else {
+    available.forEach(k => {
+      const date = k.addedAt ? new Date(Number(k.addedAt)).toLocaleString('en-IN', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' }) : 'N/A';
+      availList.innerHTML += `<div class="product-item" style="padding:12px;display:flex;justify-content:space-between;align-items:center;gap:8px;"><div style="flex:1;min-width:0;overflow:hidden;"><strong style="font-family:monospace;font-size:12px;word-break:break-all;display:block;">${k.key}</strong><small style="color:#4a7c59;font-weight:700;display:block;margin-top:3px;">⏱️ ${k.duration || 'N/A'}</small></div><div style="flex-shrink:0;text-align:right;margin-right:6px;"><small style="color:#8a8a8a;font-size:10px;display:block;">🕐 ${date}</small></div><button onclick="deleteKey('${k.docId}')" style="background:#d32f2f;color:#fff;border:none;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;flex-shrink:0;width:auto;">Del</button></div>`;
+    });
+  }
+  const usedList = document.getElementById('usedKeysList');
+  if (used.length === 0) {
+    usedList.innerHTML = '<p style="color:#999;font-size:13px;text-align:center;padding:14px 0;">Abhi tak koi key use nahi hui.</p>';
+  } else {
+    used.forEach(k => {
+      const date = k.assignedAt ? new Date(Number(k.assignedAt)).toLocaleString('en-IN', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' }) : 'N/A';
+      usedList.innerHTML += `<div class="product-item" style="padding:12px;display:flex;justify-content:space-between;align-items:center;gap:8px;opacity:0.75;"><div style="flex:1;min-width:0;overflow:hidden;"><strong style="font-family:monospace;font-size:11px;word-break:break-all;display:block;">${k.key}</strong><small style="color:#8a8a8a;display:block;margin-top:3px;">⏱️ ${k.duration || 'N/A'}</small></div><div style="flex-shrink:0;text-align:right;margin-right:6px;"><small style="color:#d32f2f;font-size:10px;display:block;">✅ ${date}</small></div><button onclick="deleteKey('${k.docId}')" style="background:#d32f2f;color:#fff;border:none;padding:8px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;flex-shrink:0;width:auto;">Del</button></div>`;
+    });
+  }
+}
+function toggleAvailableKeys() {
+  const list = document.getElementById('availableKeysList');
+  const arrow = document.getElementById('availArrow');
+  if (!list || !arrow) return;
+  if (list.style.display === 'none' || list.style.display === '') {
+    list.style.display = 'block'; arrow.style.transform = 'rotate(180deg)';
+  } else {
+    list.style.display = 'none'; arrow.style.transform = 'rotate(0deg)';
+  }
+}
+function toggleUsedKeys() {
+  const list = document.getElementById('usedKeysList');
+  const arrow = document.getElementById('usedArrow');
+  if (!list || !arrow) return;
+  if (list.style.display === 'none' || list.style.display === '') {
+    list.style.display = 'block'; arrow.style.transform = 'rotate(180deg)';
+  } else {
+    list.style.display = 'none'; arrow.style.transform = 'rotate(0deg)';
+  }
+}
+function deleteKey(docId) {
+  showConfirm('Delete this key from stock?', async () => {
+    const { db, doc, deleteDoc } = window.FS;
+    await deleteDoc(doc(db, 'keyStock', docId));
+    showToast('✅ Key deleted!', 'success');
+  });
+}
+
+/* ============ PROMO CODES ============ */
+function renderPromos() {
+  const list = document.getElementById('promoList');
+  if (!list) return;
+  list.innerHTML = '';
+  if (promos.length === 0) {
+    list.innerHTML = '<p style="color:#999;font-size:13px;text-align:center;padding:20px 0;">No promo codes yet.</p>';
+    return;
+  }
+  const now = Date.now();
+  promos.forEach(p => {
+    const expiry = Number(p.expiry || 0);
+    const isExpired = expiry <= now;
+    const remaining = expiry - now;
+    const usedCount = Number(p.usedCount || 0);
+    const maxUsers = Number(p.maxUsers || 0);
+    const isFull = usedCount >= maxUsers;
+    const safeCode = (p.code || '').replace(/'/g, "\\'");
+    let timeText = isExpired ? '❌ Expired' : (isFull ? '🚫 Full' : '⏰ ' + formatTimeLeft(remaining));
+    let statusColor = '#4a7c59';
+    if (isExpired) statusColor = '#d32f2f';
+    else if (isFull) statusColor = '#c77700';
+    list.innerHTML += `<div class="rate-item" style="cursor:default;flex-direction:column;align-items:stretch;gap:8px;"><div style="display:flex;flex-direction:column;gap:4px;"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;"><span class="rate-name">🎟️ ${p.code} — ₹${p.discount} off</span><span style="font-size:10.5px;font-weight:700;color:${statusColor};background:#faf8f3;padding:3px 8px;border-radius:6px;white-space:nowrap;">${isExpired ? '❌ EXPIRED' : (isFull ? '🚫 FULL' : '✅ ACTIVE')}</span></div><span style="font-size:11.5px;color:#8a8a8a;">Used: ${usedCount}/${maxUsers} | ${timeText}</span></div><div style="display:flex;gap:6px;margin-top:4px;"><button onclick="openPromoEdit('${p.docId}')" style="flex:1;background:#4a7c59;color:#fff;border:none;padding:8px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">✎ Edit</button><button onclick="deletePromo('${p.docId}', '${safeCode}')" style="flex:1;background:#d32f2f;color:#fff;border:none;padding:8px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;">🗑 Delete</button></div></div>`;
+  });
+}
+
+function openPromoEdit(docId) {
+  const isNew = docId === -1;
+  currentPromoDocId = isNew ? null : docId;
+  if (isNew) {
+    document.getElementById('promoEditTitle').textContent = 'Create Promo Code';
+    document.getElementById('editPromoCode').value = '';
+    document.getElementById('editPromoDiscount').value = '';
+    document.getElementById('editPromoMaxUsers').value = '';
+    document.getElementById('editPromoDays').value = '30';
+  } else {
+    const p = promos.find(x => x.docId === docId);
+    document.getElementById('promoEditTitle').textContent = 'Edit Promo';
+    document.getElementById('editPromoCode').value = p.code;
+    document.getElementById('editPromoDiscount').value = p.discount;
+    document.getElementById('editPromoMaxUsers').value = p.maxUsers;
+    document.getElementById('editPromoDays').value = '30';
+  }
+  document.getElementById('promoEditPopup').classList.add('show');
+}
+function closePromoEdit() {
+  document.getElementById('promoEditPopup').classList.remove('show');
+  currentPromoDocId = null;
+}
+async function savePromoEdit() {
+  const code = document.getElementById('editPromoCode').value.trim().toUpperCase();
+  const discount = Number(document.getElementById('editPromoDiscount').value);
+  const maxUsers = Number(document.getElementById('editPromoMaxUsers').value);
+  const days = Number(document.getElementById('editPromoDays').value) || 1;
+  if (!code || !discount || !maxUsers) { showToast('❌ Sab fields bharein!', 'error'); return; }
+  if (days <= 0) { showToast('❌ Expiry > 0 honi chahiye!', 'error'); return; }
+  const totalMs = days * 24 * 60 * 60 * 1000;
+  const { db, doc, collection, addDoc, updateDoc } = window.FS;
+  if (!currentPromoDocId) {
+    if (promos.some(p => p.code === code)) { showToast('❌ Promo already exists!', 'error'); return; }
+    await addDoc(collection(db, 'promos'), { code, discount, maxUsers, usedCount:0, expiry: Date.now() + totalMs, expiryDays: days });
+    showToast('✅ Promo "' + code + '" created! (' + days + ' din)', 'success');
+  } else {
+    await updateDoc(doc(db, 'promos', currentPromoDocId), { code, discount, maxUsers, expiry: Date.now() + totalMs, expiryDays: days });
+    showToast('✅ Promo updated!', 'success');
+  }
+  closePromoEdit();
+}
+function deletePromo(docId, code) {
+  showConfirm('Delete promo "' + code + '"?', async () => {
+    try {
+      const { db, doc, deleteDoc } = window.FS;
+      await deleteDoc(doc(db, 'promos', docId));
+      showToast('✅ Promo deleted!', 'success');
+    } catch (e) { showToast('❌ Delete failed: ' + e.message, 'error'); }
+  });
+}
+  </script>
+  <script>
+/* ============ CHANGE PASSWORD ============ */
+function changePasswordOpen() {
+  document.getElementById('oldPassword').value = '';
+  document.getElementById('newPassword').value = '';
+  document.getElementById('confirmPassword').value = '';
+  document.getElementById('changePasswordPopup').classList.add('show');
+}
+function changePasswordClose() {
+  document.getElementById('changePasswordPopup').classList.remove('show');
+}
+function saveNewPassword() {
+  const oldPass = document.getElementById('oldPassword').value.trim();
+  const newPass = document.getElementById('newPassword').value.trim();
+  const confirmPass = document.getElementById('confirmPassword').value.trim();
+  if (!oldPass || !newPass || !confirmPass) { showToast('❌ Sab fields bharein!', 'error'); return; }
+  if (oldPass !== getAdminPass()) { showToast('❌ Old password galat hai!', 'error'); return; }
+  if (newPass !== confirmPass) { showToast('❌ Passwords match nahi kar rahe!', 'error'); return; }
+  if (newPass.length < 6) { showToast('❌ Password kam se kam 6 characters ka hona chahiye!', 'error'); return; }
+  localStorage.setItem('adminPass', newPass);
+  showToast('✅ Password change ho gaya! Ab dobara login karein.', 'success');
+  localStorage.removeItem('adminLoggedIn');
+  sessionStorage.removeItem('adminLoggedIn');
+  changePasswordClose();
+  setTimeout(() => showScreen('screen-login'), 1500);
+}
+</script>
+</body>
+</html>
