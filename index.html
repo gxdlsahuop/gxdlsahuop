@@ -1,0 +1,1929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GxdL๛SAHU〆OP Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Inter', sans-serif; }
+body { 
+  background:#05060f; 
+  min-height:100vh; 
+  color:#fff; 
+  overflow-x:hidden;
+  position:relative;
+}
+body::before {
+  content:'';
+  position:fixed;
+  top:-50%; left:-50%;
+  width:200%; height:200%;
+  background:
+    radial-gradient(circle at 15% 15%, rgba(168,85,247,0.18) 0%, transparent 40%),
+    radial-gradient(circle at 85% 25%, rgba(255,215,0,0.10) 0%, transparent 40%),
+    radial-gradient(circle at 50% 90%, rgba(0,212,255,0.15) 0%, transparent 45%);
+  z-index:-2;
+  animation:bgFloat 25s ease-in-out infinite;
+}
+body::after {
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size:40px 40px;
+  z-index:-1;
+  pointer-events:none;
+}
+@keyframes bgFloat {
+  0%,100% { transform:translate(0,0) rotate(0deg); }
+  50% { transform:translate(-3%,-3%) rotate(2deg); }
+}
+.screen { display:none; }
+.screen.active { display:block; animation:fadeUp 0.5s ease; }
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(20px); }
+  to { opacity:1; transform:translateY(0); }
+}
+.mobile-wrapper { width:100%; max-width:440px; margin:0 auto; padding:16px; min-height:100vh; }
+.premium-header {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:14px 18px; margin-bottom:20px;
+  background:rgba(255,255,255,0.04); backdrop-filter:blur(20px);
+  border:1px solid rgba(255,215,0,0.15); border-radius:20px;
+  box-shadow:0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+  position:relative; overflow:hidden;
+}
+.premium-header::before {
+  content:''; position:absolute; top:0; left:-100%;
+  width:100%; height:100%;
+  background:linear-gradient(90deg, transparent, rgba(255,215,0,0.08), transparent);
+  animation:shine 4s infinite;
+}
+@keyframes shine { 0% { left:-100%; } 50%,100% { left:200%; } }
+.brand-vip { display:flex; flex-direction:column; gap:2px; }
+.brand-vip .brand-top {
+  font-size:15px; font-weight:900;
+  background:linear-gradient(135deg,#FFD700,#a855f7);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  letter-spacing:1.5px;
+}
+.brand-vip .brand-sub {
+  font-size:9.5px; color:#a0a0c0; letter-spacing:2.5px;
+  font-weight:700; text-transform:uppercase;
+}
+.vip-badge {
+  display:inline-flex; align-items:center; gap:4px;
+  padding:4px 10px;
+  background:linear-gradient(135deg,rgba(255,215,0,0.2),rgba(168,85,247,0.2));
+  border:1px solid rgba(255,215,0,0.4); border-radius:8px;
+  font-size:9px; font-weight:800; color:#FFD700;
+  letter-spacing:1px; margin-top:2px; width:fit-content;
+}
+.header-actions { display:flex; gap:8px; align-items:center; }
+.icon-btn-premium {
+  width:42px; height:42px; border-radius:12px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,215,0,0.2);
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; font-size:18px; transition:all 0.3s; color:#FFD700;
+}
+.icon-btn-premium:active {
+  transform:scale(0.9); background:rgba(255,215,0,0.15);
+  box-shadow:0 0 20px rgba(255,215,0,0.4);
+}
+.vip-card {
+  background:linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+  backdrop-filter:blur(24px);
+  border:1px solid rgba(255,215,0,0.2); border-radius:28px;
+  padding:32px 24px 28px 24px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08);
+  position:relative; overflow:hidden;
+}
+.vip-card::before {
+  content:''; position:absolute; top:0; left:0; right:0;
+  height:2px;
+  background:linear-gradient(90deg, transparent, #FFD700, #a855f7, #00d4ff, transparent);
+  background-size:200% 100%;
+  animation:borderFlow 3s linear infinite;
+}
+@keyframes borderFlow {
+  0% { background-position:0% 50%; }
+  100% { background-position:200% 50%; }
+}
+.vip-card h1 {
+  text-align:center; font-size:28px; font-weight:900;
+  background:linear-gradient(135deg,#fff 0%,#FFD700 50%,#a855f7 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  margin-bottom:8px; letter-spacing:0.5px;
+}
+.vip-card .subtitle {
+  text-align:center; color:#a0a0c0; font-size:13px;
+  margin-bottom:26px; letter-spacing:0.5px;
+}
+.trust-badges {
+  display:flex; justify-content:center; gap:8px;
+  margin-bottom:24px; flex-wrap:wrap;
+}
+.trust-badge {
+  display:flex; align-items:center; gap:4px;
+  padding:6px 12px; background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,215,0,0.15);
+  border-radius:20px; font-size:10.5px; font-weight:700; color:#e0e0e0;
+}
+.trust-badge .tb-icon { font-size:12px; }
+.trust-badge.gold { border-color:rgba(255,215,0,0.4); color:#FFD700; }
+.trust-badge.green { border-color:rgba(34,197,94,0.4); color:#22c55e; }
+.input-group { margin-bottom:18px; }
+.input-group label {
+  display:block; font-size:10.5px; font-weight:800;
+  color:#a0a0c0; letter-spacing:1.8px; margin-bottom:8px;
+  text-transform:uppercase;
+}
+.vip-input {
+  width:100%; padding:16px 18px;
+  background:rgba(0,0,0,0.4);
+  border:1.5px solid rgba(255,215,0,0.15);
+  border-radius:16px; font-size:15px; color:#fff;
+  outline:none; transition:all 0.3s; font-weight:500;
+}
+.vip-input:focus {
+  border-color:#FFD700;
+  box-shadow:0 0 0 4px rgba(255,215,0,0.1), 0 0 30px rgba(255,215,0,0.2);
+  background:rgba(0,0,0,0.5);
+}
+.vip-input::placeholder { color:#5a5a70; }
+.vip-input[readonly] {
+  background:rgba(0,212,255,0.05);
+  border-color:rgba(0,212,255,0.2);
+  color:#00d4ff; cursor:not-allowed; font-weight:700;
+}
+  .vip-btn {
+  width:100%; padding:18px;
+  background:linear-gradient(135deg,#FFD700 0%,#a855f7 50%,#00d4ff 100%);
+  background-size:200% 200%;
+  color:#0a0a1a; border:none; border-radius:16px;
+  font-size:16px; font-weight:900; cursor:pointer;
+  letter-spacing:1px;
+  box-shadow:0 10px 40px rgba(168,85,247,0.4), 0 0 30px rgba(255,215,0,0.2);
+  transition:all 0.3s; position:relative; overflow:hidden;
+  display:flex; align-items:center; justify-content:center; gap:8px;
+}
+.vip-btn::before {
+  content:''; position:absolute; top:0; left:-100%;
+  width:100%; height:100%;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  animation:btnShine 2.5s infinite;
+}
+@keyframes btnShine { 0% { left:-100%; } 50%,100% { left:200%; } }
+.vip-btn:active {
+  transform:scale(0.97);
+  box-shadow:0 5px 20px rgba(168,85,247,0.5);
+}
+.vip-btn:disabled { opacity:0.6; cursor:not-allowed; }
+.vip-btn .btn-spinner {
+  width:20px; height:20px;
+  border:2.5px solid rgba(0,0,0,0.2);
+  border-top-color:#0a0a1a; border-radius:50%;
+  animation:spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform:rotate(360deg); } }
+.secure-note {
+  text-align:center; color:#606080; font-size:11px;
+  margin-top:14px; letter-spacing:0.5px;
+}
+.vip-dropdown {
+  background:rgba(0,0,0,0.4);
+  border:1.5px solid rgba(255,215,0,0.15);
+  border-radius:16px; padding:16px 18px;
+  display:flex; justify-content:space-between; align-items:center;
+  cursor:pointer; font-size:14.5px; font-weight:600; color:#fff;
+  transition:all 0.3s;
+}
+.vip-dropdown:active {
+  border-color:#FFD700; background:rgba(255,215,0,0.05);
+}
+.vip-dropdown .arrow {
+  color:#FFD700; font-size:12px; transition:transform 0.3s;
+}
+.vip-modal {
+  position:fixed; inset:0;
+  background:rgba(0,0,0,0.75); backdrop-filter:blur(12px);
+  display:none; align-items:center; justify-content:center;
+  z-index:2000; padding:20px; animation:fadeIn 0.3s ease;
+}
+.vip-modal.show { display:flex; }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+.vip-modal-content {
+  background:linear-gradient(135deg, rgba(20,22,40,0.98) 0%, rgba(10,12,26,0.98) 100%);
+  border:1px solid rgba(255,215,0,0.3);
+  border-radius:24px; width:100%; max-width:380px;
+  max-height:80vh; overflow-y:auto; padding:8px;
+  box-shadow:0 30px 80px rgba(0,0,0,0.8), 0 0 60px rgba(255,215,0,0.1);
+  animation:popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes popIn {
+  from { transform:scale(0.85); opacity:0; }
+  to { transform:scale(1); opacity:1; }
+}
+.vip-modal-title {
+  text-align:center; font-size:15px; font-weight:800;
+  color:#FFD700; padding:16px 14px;
+  border-bottom:1px solid rgba(255,215,0,0.1);
+  letter-spacing:1px; text-transform:uppercase;
+}
+.option-item {
+  padding:16px 18px;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  cursor:pointer; font-size:14.5px;
+  display:flex; justify-content:space-between; align-items:center;
+  transition:all 0.2s; color:#e0e0e0;
+}
+.option-item:last-child { border-bottom:none; }
+.option-item:active { background:rgba(255,215,0,0.08); }
+.radio-vip {
+  width:22px; height:22px;
+  border:2px solid rgba(255,215,0,0.3);
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; transition:all 0.3s;
+}
+.radio-vip.active {
+  border-color:#FFD700; background:rgba(255,215,0,0.15);
+  box-shadow:0 0 15px rgba(255,215,0,0.4);
+}
+.radio-vip.active::after {
+  content:''; width:10px; height:10px;
+  background:#FFD700; border-radius:50%;
+  box-shadow:0 0 10px #FFD700;
+}
+.duration-grid {
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:8px; margin-top:8px;
+}
+.dur-card {
+  background:rgba(255,255,255,0.03);
+  border:1.5px solid rgba(255,215,0,0.15);
+  border-radius:14px; padding:14px 8px; text-align:center;
+  cursor:pointer; transition:all 0.3s; position:relative;
+}
+.dur-card:active { transform:scale(0.96); }
+.dur-card.active {
+  background:linear-gradient(135deg, rgba(255,215,0,0.15), rgba(168,85,247,0.15));
+  border-color:#FFD700;
+  box-shadow:0 0 25px rgba(255,215,0,0.3);
+}
+.dur-card .dc-time {
+  font-size:12px; font-weight:800; color:#fff;
+  margin-bottom:4px; letter-spacing:0.3px;
+}
+.dur-card.active .dc-time { color:#FFD700; }
+.dur-card .dc-price {
+  font-size:13px; font-weight:900;
+  background:linear-gradient(135deg,#FFD700,#a855f7);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+}
+.promo-section {
+  background:rgba(255,255,255,0.03);
+  border:1.5px solid rgba(168,85,247,0.2);
+  border-radius:18px; padding:16px 18px;
+  margin-bottom:18px; transition:all 0.3s;
+}
+.promo-header-collapsible {
+  display:flex; justify-content:space-between; align-items:center;
+  cursor:pointer;
+}
+.promo-header-collapsible .ph-title {
+  display:flex; align-items:center; gap:8px;
+  font-size:14px; font-weight:700; color:#a855f7;
+}
+.promo-arrow {
+  font-size:12px; color:#a855f7; transition:transform 0.3s;
+}
+.promo-arrow.open { transform:rotate(180deg); }
+.promo-body {
+  max-height:0; overflow:hidden;
+  transition:max-height 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease;
+  opacity:0; margin-top:0;
+}
+.promo-body.open {
+  max-height:500px; opacity:1; margin-top:14px;
+}
+.promo-input-row {
+  display:flex; gap:8px; width:100%;
+}
+.promo-input-row input {
+  flex:1; min-width:0; padding:14px 16px;
+  background:rgba(0,0,0,0.4);
+  border:1.5px solid rgba(168,85,247,0.2);
+  border-radius:14px; font-size:13px;
+  outline:none; color:#fff; letter-spacing:1px; font-weight:600;
+}
+.promo-input-row input::placeholder {
+  color:#5a5a70; font-size:11px; letter-spacing:1.5px;
+}
+.promo-input-row button {
+  flex-shrink:0;
+  background:linear-gradient(135deg,#a855f7,#00d4ff);
+  color:#fff; border:none; padding:14px 20px;
+  border-radius:14px; font-size:13px; font-weight:800;
+  cursor:pointer; letter-spacing:0.5px;
+  box-shadow:0 4px 20px rgba(168,85,247,0.3);
+  transition:all 0.2s;
+}
+.promo-input-row button:active { transform:scale(0.96); }
+.promo-status {
+  font-size:12px; color:#a0a0c0; margin-top:12px;
+  letter-spacing:0.3px;
+}
+.promo-details-box {
+  background:linear-gradient(135deg, rgba(34,197,94,0.08), rgba(0,212,255,0.08));
+  border:1.5px dashed rgba(34,197,94,0.4);
+  border-radius:14px; padding:14px 16px; margin-top:14px;
+  animation:slideDown 0.4s ease;
+}
+@keyframes slideDown {
+  from { opacity:0; transform:translateY(-10px); }
+  to { opacity:1; transform:translateY(0); }
+}
+.promo-details-box .pd-row {
+  display:flex; justify-content:space-between;
+  font-size:13px; color:#e0e0e0; margin-bottom:8px;
+}
+.promo-details-box .pd-row:last-child {
+  margin-bottom:0;
+  border-top:1px dashed rgba(255,255,255,0.15);
+  padding-top:10px; font-weight:900; font-size:15px; color:#22c55e;
+}
+.promo-details-box .pd-saved {
+  color:#22c55e; font-weight:800; text-align:center;
+  font-size:12.5px; margin-bottom:10px; letter-spacing:0.5px;
+}
+.price-summary-vip {
+  background:linear-gradient(135deg, rgba(34,197,94,0.08), rgba(0,212,255,0.08));
+  border:1.5px solid rgba(34,197,94,0.3);
+  border-radius:18px; padding:18px; margin-bottom:18px;
+  display:none;
+}
+.price-row-vip {
+  display:flex; justify-content:space-between;
+  margin-bottom:10px; font-size:14px; color:#e0e0e0;
+}
+.price-row-vip.discount { color:#22c55e; font-weight:700; }
+.price-row-vip.total {
+  border-top:1px dashed rgba(255,255,255,0.15);
+  padding-top:12px; font-weight:900; font-size:18px;
+  color:#FFD700; letter-spacing:0.5px;
+}
+  .payment-card {
+  background:linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  backdrop-filter:blur(24px);
+  border:1px solid rgba(255,215,0,0.2);
+  border-radius:28px; padding:30px 22px 26px 22px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+  margin-bottom:18px; position:relative; overflow:hidden;
+}
+.payment-card::before {
+  content:''; position:absolute; top:0; left:0; right:0;
+  height:2px;
+  background:linear-gradient(90deg, transparent, #FFD700, #a855f7, transparent);
+  background-size:200% 100%;
+  animation:borderFlow 3s linear infinite;
+}
+.pay-scan-label {
+  text-align:center; font-size:11px; font-weight:800;
+  color:#FFD700; letter-spacing:3px; margin-bottom:10px;
+}
+.pay-title {
+  text-align:center; font-size:26px; font-weight:900;
+  background:linear-gradient(135deg,#fff,#FFD700);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  margin-bottom:6px;
+}
+.pay-subtitle {
+  text-align:center; font-size:12.5px; color:#a0a0c0;
+  margin-bottom:24px;
+}
+.qr-container {
+  background:#fff; border-radius:22px; padding:18px;
+  width:fit-content; margin:0 auto 22px auto;
+  box-shadow:0 0 40px rgba(255,215,0,0.3), 0 0 80px rgba(168,85,247,0.2);
+  position:relative;
+}
+.qr-container::before {
+  content:''; position:absolute; inset:-2px;
+  border-radius:24px;
+  background:linear-gradient(135deg,#FFD700,#a855f7,#00d4ff);
+  z-index:-1;
+  animation:borderFlow 3s linear infinite;
+}
+.qr-container img {
+  width:220px; height:220px; display:block; border-radius:10px;
+}
+.pay-amount-box {
+  background:rgba(255,215,0,0.08);
+  border:1.5px solid rgba(255,215,0,0.3);
+  border-radius:18px; padding:18px; text-align:center;
+  margin-bottom:18px;
+}
+.pay-amount-label {
+  font-size:11px; font-weight:800; color:#FFD700;
+  letter-spacing:2.5px; margin-bottom:6px;
+}
+.pay-amount {
+  font-size:36px; font-weight:900;
+  background:linear-gradient(135deg,#FFD700,#a855f7);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  letter-spacing:0.5px;
+}
+.instructions-box-vip {
+  background:rgba(0,0,0,0.3);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:16px; padding:16px 18px;
+}
+.instr-header-vip {
+  display:flex; align-items:center; gap:8px;
+  margin-bottom:12px; font-size:13.5px;
+  color:#FFD700; font-weight:800; letter-spacing:0.5px;
+}
+.instructions-box-vip p {
+  font-size:13px; color:#c0c0d0; margin-bottom:6px; line-height:1.5;
+}
+.instructions-box-vip p:last-child { margin-bottom:0; }
+.instructions-box-vip strong { color:#FFD700; }
+.order-card-vip {
+  background:linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+  backdrop-filter:blur(24px);
+  border:1px solid rgba(255,215,0,0.15);
+  border-radius:26px; padding:24px 22px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.4);
+}
+.order-row-vip {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:11px 0; font-size:13.5px; color:#e0e0e0;
+}
+.order-row-vip span:first-child { color:#a0a0c0; font-weight:600; }
+.order-row-vip span:last-child { font-weight:800; color:#fff; }
+.order-chip-vip {
+  background:rgba(255,215,0,0.1);
+  padding:6px 12px; border-radius:8px;
+  font-size:12px; font-weight:800; color:#FFD700;
+  border:1px solid rgba(255,215,0,0.2);
+}
+.status-chip-vip {
+  background:rgba(34,197,94,0.15);
+  color:#22c55e !important;
+  padding:6px 12px; border-radius:8px;
+  font-size:12.5px; font-weight:800;
+  border:1px solid rgba(34,197,94,0.3);
+}
+.order-divider-vip {
+  border:none;
+  border-top:1px dashed rgba(255,255,255,0.1);
+  margin:14px 0;
+}
+.timer-label-vip {
+  text-align:center; font-size:12.5px; color:#a0a0c0;
+  margin-bottom:8px; letter-spacing:0.5px;
+}
+.timer-vip {
+  text-align:center; font-size:44px; font-weight:900;
+  background:linear-gradient(135deg,#FFD700,#a855f7);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  letter-spacing:3px; margin-bottom:14px;
+  font-variant-numeric:tabular-nums;
+}
+.timer-bar-vip {
+  height:8px; background:rgba(255,255,255,0.06);
+  border-radius:10px; overflow:hidden; margin-bottom:10px;
+}
+.timer-bar-fill-vip {
+  height:100%; width:100%;
+  background:linear-gradient(90deg,#FFD700,#a855f7,#00d4ff);
+  background-size:200% 100%;
+  border-radius:10px;
+  transition:width 1s linear;
+  animation:borderFlow 2s linear infinite;
+}
+.timer-note-vip {
+  text-align:center; font-size:11.5px; color:#606080;
+}
+.checking-box-vip {
+  text-align:center; padding:16px 0;
+}
+.spinner-vip {
+  width:44px; height:44px;
+  border:3px solid rgba(255,215,0,0.15);
+  border-top-color:#FFD700;
+  border-right-color:#a855f7;
+  border-radius:50%; margin:0 auto 14px auto;
+  animation:spin 1s linear infinite;
+  box-shadow:0 0 25px rgba(255,215,0,0.3);
+}
+.checking-text-vip {
+  font-size:14.5px; font-weight:800;
+  color:#FFD700; margin-bottom:4px; letter-spacing:0.5px;
+}
+.checking-sub-vip {
+  font-size:11.5px; color:#606080;
+}
+.payment-success-btn-vip {
+  display:block; width:100%; padding:17px;
+  background:linear-gradient(135deg,#22c55e,#16a34a);
+  color:#fff; border:none; border-radius:16px;
+  font-size:15.5px; font-weight:900; cursor:pointer;
+  margin-bottom:12px; letter-spacing:0.8px;
+  box-shadow:0 8px 30px rgba(34,197,94,0.4);
+  transition:all 0.3s;
+}
+.payment-success-btn-vip:active { transform:scale(0.97); }
+.payment-success-btn-vip:disabled {
+  background:linear-gradient(135deg,#166534,#14532d);
+  cursor:default; box-shadow:none;
+}
+.telegram-btn-vip {
+  display:block; width:100%; padding:15px;
+  background:linear-gradient(135deg,#229ED9,#00d4ff);
+  color:#fff; text-decoration:none; text-align:center;
+  border-radius:16px; font-size:14.5px; font-weight:800;
+  margin-top:12px; letter-spacing:0.5px;
+  box-shadow:0 8px 30px rgba(34,158,217,0.4);
+  transition:all 0.3s;
+}
+.telegram-btn-vip:active { transform:scale(0.97); }
+.cancel-btn-vip {
+  width:100%; padding:15px;
+  background:rgba(255,255,255,0.05);
+  color:#a0a0c0; border:1px solid rgba(255,255,255,0.1);
+  border-radius:16px; font-size:14.5px; font-weight:700;
+  cursor:pointer; margin-top:10px;
+  letter-spacing:0.5px; transition:all 0.3s;
+}
+.cancel-btn-vip:active { transform:scale(0.97); background:rgba(255,255,255,0.1); }
+  .key-popup-vip {
+  background:linear-gradient(135deg, rgba(20,22,40,0.98), rgba(10,12,26,0.98));
+  border:1px solid rgba(255,215,0,0.4);
+  width:100%; max-width:380px;
+  border-radius:28px; padding:34px 24px;
+  text-align:center;
+  box-shadow:0 30px 80px rgba(0,0,0,0.8), 0 0 80px rgba(255,215,0,0.2);
+  margin:auto; max-height:90vh; overflow-y:auto;
+  animation:popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.key-popup-vip .emoji {
+  font-size:64px; margin-bottom:12px;
+  filter:drop-shadow(0 0 25px rgba(255,215,0,0.6));
+  animation:bounce 2s ease infinite;
+}
+@keyframes bounce {
+  0%,100% { transform:translateY(0); }
+  50% { transform:translateY(-8px); }
+}
+.key-popup-vip h2 {
+  font-size:22px; font-weight:900;
+  background:linear-gradient(135deg,#FFD700,#a855f7);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  margin-bottom:6px; letter-spacing:0.5px;
+}
+.key-popup-vip p {
+  color:#a0a0c0; font-size:13px; margin-bottom:20px;
+}
+.apk-wrap-vip {
+  display:flex; flex-direction:column;
+  background:rgba(0,0,0,0.3);
+  border:1px solid rgba(0,212,255,0.2);
+  border-radius:18px; padding:16px;
+  margin-bottom:20px;
+}
+.apk-card-vip {
+  display:flex; align-items:center; gap:14px;
+  margin-bottom:14px;
+}
+.apk-icon-vip {
+  width:56px; height:56px;
+  background:linear-gradient(135deg,#229ED9,#00d4ff);
+  border-radius:16px;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+  box-shadow:0 8px 25px rgba(34,158,217,0.5);
+}
+.apk-info-vip { flex:1; text-align:left; min-width:0; }
+.apk-name-vip {
+  font-size:15px; font-weight:800; color:#00d4ff;
+  margin-bottom:3px;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.apk-size-vip { font-size:12px; color:#a0a0c0; font-weight:600; }
+.apk-download-btn-vip {
+  display:block; width:100%; padding:14px;
+  background:linear-gradient(135deg,#229ED9,#00d4ff);
+  color:#fff; text-decoration:none; text-align:center;
+  border-radius:14px; font-size:14.5px; font-weight:800;
+  letter-spacing:0.5px;
+  box-shadow:0 6px 20px rgba(34,158,217,0.4);
+  transition:all 0.3s;
+}
+.apk-download-btn-vip:active { transform:scale(0.97); }
+.key-box-vip {
+  background:rgba(255,215,0,0.05);
+  border:2px dashed rgba(255,215,0,0.4);
+  border-radius:18px; padding:22px;
+  margin-bottom:20px;
+}
+.key-box-label-vip {
+  font-size:10.5px; font-weight:800; color:#a0a0c0;
+  letter-spacing:2.5px; margin-bottom:12px;
+}
+.key-box-value-vip {
+  font-size:17px; font-weight:900; color:#FFD700;
+  font-family:monospace; letter-spacing:1.5px;
+  word-break:break-all;
+  text-shadow:0 0 20px rgba(255,215,0,0.4);
+}
+.key-box-duration-vip {
+  font-size:13px; color:#22c55e; margin-top:10px; font-weight:800;
+}
+.key-btn-vip {
+  width:100%; padding:15px;
+  border:none; border-radius:14px;
+  font-size:14.5px; font-weight:800;
+  cursor:pointer; margin-bottom:10px;
+  letter-spacing:0.5px; transition:all 0.3s;
+}
+.key-btn-vip:active { transform:scale(0.97); }
+.key-btn-copy-vip {
+  background:linear-gradient(135deg,#FFD700,#a855f7);
+  color:#0a0a1a;
+  box-shadow:0 8px 30px rgba(255,215,0,0.4);
+}
+.key-btn-mykeys-vip {
+  background:rgba(168,85,247,0.15);
+  border:1.5px solid rgba(168,85,247,0.4);
+  color:#a855f7;
+}
+.mykey-card-vip {
+  background:linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  backdrop-filter:blur(24px);
+  border:1px solid rgba(255,215,0,0.2);
+  border-radius:24px; padding:20px;
+  margin-bottom:14px;
+  box-shadow:0 12px 40px rgba(0,0,0,0.4);
+  position:relative; overflow:hidden;
+}
+.mykey-card-vip::before {
+  content:''; position:absolute; top:0; left:0; right:0;
+  height:2px;
+  background:linear-gradient(90deg, #FFD700, #a855f7, #00d4ff);
+  background-size:200% 100%;
+  animation:borderFlow 3s linear infinite;
+}
+.mykey-product-vip {
+  font-size:14px; font-weight:800; color:#fff; margin-bottom:10px;
+}
+.mykey-value-vip {
+  font-family:monospace; font-size:13.5px; color:#FFD700;
+  font-weight:800; word-break:break-all;
+  background:rgba(255,215,0,0.08);
+  padding:12px; border-radius:10px; margin-bottom:14px;
+  border:1px solid rgba(255,215,0,0.2);
+  text-shadow:0 0 15px rgba(255,215,0,0.3);
+}
+.mykey-timer-vip {
+  font-size:24px; font-weight:900; color:#22c55e;
+  text-align:center; margin:12px 0 10px 0;
+  font-variant-numeric:tabular-nums; letter-spacing:1px;
+}
+.mykey-progress-vip {
+  height:8px; background:rgba(255,255,255,0.06);
+  border-radius:10px; overflow:hidden; margin-bottom:12px;
+}
+.mykey-progress-fill-vip {
+  height:100%;
+  background:linear-gradient(90deg,#22c55e,#00d4ff);
+  border-radius:10px; transition:width 1s linear;
+}
+.mykey-expiry-vip {
+  font-size:11.5px; color:#a0a0c0;
+  text-align:center; margin-bottom:14px;
+}
+.mykey-copy-vip {
+  width:100%; padding:13px;
+  background:linear-gradient(135deg,#FFD700,#a855f7);
+  color:#0a0a1a; border:none; border-radius:12px;
+  font-size:14px; font-weight:900; cursor:pointer;
+  letter-spacing:0.5px;
+  box-shadow:0 6px 20px rgba(255,215,0,0.3);
+  transition:all 0.3s;
+}
+.mykey-copy-vip:active { transform:scale(0.97); }
+.reject-popup-vip {
+  background:linear-gradient(135deg, rgba(30,10,15,0.98), rgba(20,5,10,0.98));
+  border:1px solid rgba(239,68,68,0.4);
+  width:100%; max-width:380px;
+  border-radius:28px; padding:34px 24px;
+  text-align:center;
+  box-shadow:0 30px 80px rgba(0,0,0,0.8), 0 0 60px rgba(239,68,68,0.2);
+  margin:auto; max-height:90vh; overflow-y:auto;
+  animation:popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.reject-popup-vip .emoji {
+  font-size:64px; margin-bottom:12px;
+  filter:drop-shadow(0 0 25px rgba(239,68,68,0.6));
+}
+.reject-popup-vip h2 {
+  font-size:22px; font-weight:900; color:#ef4444;
+  margin-bottom:8px; letter-spacing:0.5px;
+}
+.reject-popup-vip p {
+  color:#c0c0d0; font-size:13.5px;
+  margin-bottom:18px; line-height:1.5;
+}
+.reject-info-vip {
+  background:rgba(239,68,68,0.08);
+  border:1.5px solid rgba(239,68,68,0.25);
+  border-radius:16px; padding:16px;
+  margin-bottom:18px; text-align:left;
+}
+.reject-info-vip p {
+  font-size:13px; color:#e0e0e0; margin-bottom:8px;
+}
+.reject-info-vip p:last-child { margin-bottom:0; }
+.reject-info-vip strong { color:#ef4444; font-weight:800; }
+.reject-btn-vip {
+  width:100%; padding:15px;
+  background:linear-gradient(135deg,#a855f7,#00d4ff);
+  color:#fff; border:none; border-radius:14px;
+  font-size:14.5px; font-weight:900; cursor:pointer;
+  letter-spacing:0.5px;
+  box-shadow:0 8px 30px rgba(168,85,247,0.4);
+  transition:all 0.3s;
+}
+.reject-btn-vip:active { transform:scale(0.97); }
+.timeout-popup-vip {
+  position:fixed; inset:0;
+  background:rgba(0,0,0,0.8); backdrop-filter:blur(12px);
+  display:none; align-items:center; justify-content:center;
+  z-index:5000; padding:20px;
+}
+.timeout-popup-vip.show { display:flex; }
+.timeout-box-vip {
+  background:linear-gradient(135deg, rgba(30,20,10,0.98), rgba(20,10,5,0.98));
+  border:1px solid rgba(255,215,0,0.4);
+  width:100%; max-width:360px;
+  border-radius:28px; padding:28px 24px;
+  text-align:center;
+  box-shadow:0 30px 80px rgba(0,0,0,0.8), 0 0 60px rgba(255,215,0,0.2);
+  animation:popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.timeout-box-vip .timeout-emoji {
+  font-size:54px; margin-bottom:12px;
+  filter:drop-shadow(0 0 25px rgba(255,215,0,0.5));
+}
+.timeout-box-vip h3 {
+  font-size:19px; color:#FFD700;
+  margin-bottom:8px; font-weight:900; letter-spacing:0.5px;
+}
+.timeout-box-vip p {
+  font-size:13px; color:#c0c0d0;
+  margin-bottom:18px; line-height:1.5;
+}
+.timeout-info-vip {
+  background:rgba(255,215,0,0.05);
+  border:1.5px solid rgba(255,215,0,0.2);
+  border-radius:14px; padding:14px;
+  margin-bottom:18px; text-align:left;
+  font-size:12.5px; color:#e0e0e0;
+}
+.timeout-info-vip div {
+  display:flex; justify-content:space-between; margin-bottom:6px;
+}
+.timeout-info-vip div:last-child { margin-bottom:0; }
+.timeout-info-vip strong { color:#FFD700; font-weight:800; }
+.timeout-btn-row-vip {
+  display:flex; gap:10px;
+}
+.timeout-btn-row-vip button {
+  flex:1; padding:14px; border:none; border-radius:14px;
+  font-size:14px; font-weight:800; cursor:pointer;
+  letter-spacing:0.5px; transition:all 0.3s;
+}
+.timeout-btn-row-vip button:active { transform:scale(0.97); }
+.timeout-btn-row-vip .btn-ok-vip {
+  background:rgba(255,255,255,0.08);
+  color:#c0c0d0; border:1px solid rgba(255,255,255,0.1);
+}
+.timeout-btn-row-vip .btn-retry-vip {
+  background:linear-gradient(135deg,#FFD700,#a855f7);
+  color:#0a0a1a;
+  box-shadow:0 8px 30px rgba(255,215,0,0.3);
+}
+</style>
+</head>
+<body>
+  <!-- ===== LOGIN SCREEN ===== -->
+<div class="screen active" id="screen-user-login">
+  <div class="mobile-wrapper" style="display:flex;align-items:center;justify-content:center;min-height:100vh;">
+    <div class="vip-card" style="width:100%;">
+      <div style="text-align:center;margin-bottom:8px;">
+        <div style="font-size:42px;margin-bottom:6px;filter:drop-shadow(0 0 20px rgba(255,215,0,0.5));">💎</div>
+      </div>
+      <h1>GxdL๛SAHU〆OP</h1>
+      <p class="subtitle">VIP ACCESS PORTAL · ENTER YOUR DETAILS</p>
+
+      <div class="trust-badges">
+        <div class="trust-badge gold"><span class="tb-icon">⭐</span> 4.9/5</div>
+        <div class="trust-badge"><span class="tb-icon">👥</span> 10K+ Users</div>
+        <div class="trust-badge green"><span class="tb-icon">🔒</span> SSL Secure</div>
+      </div>
+
+      <div class="input-group">
+        <label>👤 Your Name</label>
+        <input type="text" id="userNameInput" class="vip-input" placeholder="Enter your full name" autocomplete="off">
+      </div>
+
+      <div class="input-group">
+        <label>📱 Phone Number</label>
+        <input type="tel" id="userPhoneInput" class="vip-input" placeholder="10-digit mobile number" maxlength="10" autocomplete="off">
+      </div>
+
+      <div class="input-group">
+        <label>📟 Phone Model (Your Device)</label>
+        <input type="text" id="userDeviceInput" class="vip-input" placeholder="e.g. iQOO 15R, Redmi Note 12" autocomplete="off">
+      </div>
+
+      <div class="input-group">
+        <label>🤖 Auto-Detected Device</label>
+        <input type="text" id="autoDeviceInput" class="vip-input" placeholder="Detecting..." readonly>
+      </div>
+
+      <button class="vip-btn" onclick="saveUserName()" style="margin-top:14px;">
+        🚀 CONTINUE TO VIP STORE
+      </button>
+      <p class="secure-note">🛡️ Ye details aapke orders pe dikhengi</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== STORE SCREEN ===== -->
+<div class="screen" id="screen-store">
+  <div class="mobile-wrapper">
+    <div class="premium-header">
+      <div class="brand-vip">
+        <span class="brand-top">💎 GxdL๛SAHU〆OP</span>
+        <span class="brand-sub">VIP ACCESS STORE</span>
+        <span class="vip-badge">⭐ VIP MEMBER</span>
+      </div>
+      <div class="header-actions">
+        <button class="icon-btn-premium" onclick="openMyKeys()" title="My Keys">🔑</button>
+      </div>
+    </div>
+
+    <div class="vip-card">
+      <h1>SELECT ACCESS</h1>
+      <p class="subtitle">Premium Digital License Keys</p>
+
+      <div class="input-group">
+        <label>📦 Product</label>
+        <div class="vip-dropdown" onclick="openProductModal()">
+          <span id="selectedProduct">SERVER HACK D DOS APK GOLIXMAR</span>
+          <span class="arrow">▼</span>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>⏱️ Duration</label>
+        <div class="vip-dropdown" onclick="openDurationModal()">
+          <span id="selectedDuration">12 hours — ₹40.00</span>
+          <span class="arrow">▼</span>
+        </div>
+      </div>
+
+      <div class="promo-section">
+        <div class="promo-header-collapsible" onclick="togglePromo()">
+          <span class="ph-title">🏷️ Have a Promo Code?</span>
+          <span class="promo-arrow" id="promoArrow">▼</span>
+        </div>
+        <div class="promo-body" id="promoBody">
+          <div class="promo-input-row">
+            <input type="text" id="promoInput" placeholder="ENTER PROMO CODE">
+            <button onclick="applyPromo()">Apply</button>
+          </div>
+          <p class="promo-status" id="promoStatus">🛡️ Discount is verified securely before payment.</p>
+        </div>
+      </div>
+
+      <div class="price-summary-vip" id="priceSummary">
+        <div class="price-row-vip"><span>Original Price:</span><span id="originalPrice">₹40</span></div>
+        <div class="price-row-vip discount"><span>Discount:</span><span id="discountAmount">-₹0</span></div>
+        <div class="price-row-vip total"><span>Final Price:</span><span id="finalPrice">₹40</span></div>
+      </div>
+
+      <button class="vip-btn" id="purchaseBtn" onclick="purchase()">🛒 PURCHASE NOW</button>
+      <p class="secure-note">🛡️ 100% Safe · ⚡ Instant · 🔒 Secure</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PAYMENT SCREEN ===== -->
+<div class="screen" id="screen-payment">
+  <div class="mobile-wrapper">
+    <div class="premium-header">
+      <div class="brand-vip">
+        <span class="brand-top">💎 GxdL๛SAHU〆OP</span>
+        <span class="brand-sub">SECURE PAYMENT</span>
+      </div>
+    </div>
+
+    <div class="payment-card">
+      <p class="pay-scan-label">💳 SCAN TO PAY</p>
+      <h1 class="pay-title">Scan & Pay</h1>
+      <p class="pay-subtitle">PhonePe · Google Pay · Paytm · Any UPI app</p>
+
+      <div class="qr-container">
+        <img src="qr.png" alt="Scan to Pay">
+      </div>
+
+      <div class="pay-amount-box">
+        <p class="pay-amount-label">💰 PAY EXACTLY</p>
+        <p class="pay-amount" id="payAmount">₹40</p>
+      </div>
+
+      <div class="instructions-box-vip">
+        <div class="instr-header-vip">ⓘ INSTRUCTIONS</div>
+        <p>1. Scan the QR code above</p>
+        <p>2. Pay exactly <strong id="instrAmount">₹40</strong></p>
+        <p>3. Send payment screenshot on Telegram</p>
+      </div>
+    </div>
+
+    <div class="order-card-vip">
+      <div class="order-row-vip"><span>Order ID</span><span class="order-chip-vip" id="orderId">ORD-XXXXXXXX</span></div>
+      <div class="order-row-vip"><span>Product</span><span class="order-chip-vip" id="orderProduct">SERVER HACK D DOS APK GOLIXMAR</span></div>
+      <div class="order-row-vip"><span>Plan</span><span id="orderPlan">12 hours</span></div>
+      <div class="order-row-vip"><span>Amount</span><span id="orderAmount">₹40</span></div>
+      <div class="order-row-vip"><span>Status</span><span class="status-chip-vip" id="orderStatus">⏳ Pending</span></div>
+
+      <hr class="order-divider-vip">
+
+      <p class="timer-label-vip">Complete payment within</p>
+      <p class="timer-vip" id="paymentTimer">05:00</p>
+      <div class="timer-bar-vip"><div class="timer-bar-fill-vip" id="timerBarFill"></div></div>
+      <p class="timer-note-vip">Order cancels automatically when the timer ends</p>
+
+      <hr class="order-divider-vip">
+
+      <div class="checking-box-vip">
+        <div class="spinner-vip"></div>
+        <p class="checking-text-vip">Checking payment status...</p>
+        <p class="checking-sub-vip">Auto-checking every 3 seconds</p>
+      </div>
+
+      <button id="paymentSuccessBtn" class="payment-success-btn-vip" onclick="markPaymentSuccessful()">✅ PAYMENT SUCCESSFUL</button>
+      <a id="telegramBtn" class="telegram-btn-vip" href="https://t.me/gxdlsahuop" target="_blank">✈️ SEND PROOF ON TELEGRAM</a>
+      <button class="cancel-btn-vip" onclick="cancelPayment()">❌ CANCEL & GO BACK</button>
+    </div>
+  </div>
+</div>
+<!-- ===== MY KEYS SCREEN ===== -->
+<div class="screen" id="screen-mykeys">
+  <div class="mobile-wrapper">
+    <div class="premium-header">
+      <button class="icon-btn-premium" onclick="closeMyKeys()" style="color:#fff;">←</button>
+      <div class="brand-vip" style="text-align:center;flex:1;">
+        <span class="brand-top">🔑 MY VIP KEYS</span>
+        <span class="brand-sub">PREMIUM LICENSE VAULT</span>
+      </div>
+      <div style="width:42px;"></div>
+    </div>
+    <div id="myKeysList"></div>
+  </div>
+</div>
+
+<!-- ===== PRODUCT MODAL ===== -->
+<div class="vip-modal" id="productModal" onclick="closeProductModal(event)">
+  <div class="vip-modal-content" onclick="event.stopPropagation()">
+    <div class="vip-modal-title">📦 Select Product</div>
+    <div id="productOptions"></div>
+  </div>
+</div>
+
+<!-- ===== DURATION MODAL ===== -->
+<div class="vip-modal" id="durationModal" onclick="closeDurationModal(event)">
+  <div class="vip-modal-content" onclick="event.stopPropagation()">
+    <div class="vip-modal-title">⏱️ Select Duration</div>
+    <div id="durationOptions" style="padding:12px;"></div>
+  </div>
+</div>
+
+<!-- ===== KEY POPUP ===== -->
+<div class="vip-modal" id="keyPopup">
+  <div class="key-popup-vip">
+    <div class="emoji">🎉</div>
+    <h2>PAYMENT VERIFIED!</h2>
+    <p>Aapki premium license key ready hai</p>
+
+    <div class="apk-wrap-vip">
+      <div class="apk-card-vip">
+        <div class="apk-icon-vip">
+          <svg viewBox="0 0 24 24" fill="#fff" width="28" height="28">
+            <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/>
+          </svg>
+        </div>
+        <div class="apk-info-vip">
+          <div class="apk-name-vip">GOLIxMAR v4.6.apk</div>
+          <div class="apk-size-vip">3.3 MB APK</div>
+        </div>
+      </div>
+      <a href="https://gxdlsahuop.in/GOLIxMAR%20v4.6.apk" download class="apk-download-btn-vip">
+        📥 DOWNLOAD APK
+      </a>
+    </div>
+
+    <div class="key-box-vip">
+      <p class="key-box-label-vip">🔑 YOUR LICENSE KEY</p>
+      <p class="key-box-value-vip" id="licenseKeyText">GXD-XXXX-XXXX-XXXX</p>
+      <p class="key-box-duration-vip" id="licenseKeyDuration">⏱️ 12 hours</p>
+    </div>
+
+    <button class="key-btn-vip key-btn-copy-vip" onclick="copyKey()">📋 COPY LICENSE KEY</button>
+    <button class="key-btn-vip key-btn-mykeys-vip" onclick="closeKeyPopupAndMyKeys()">🔑 VIEW MY KEYS</button>
+  </div>
+</div>
+
+<!-- ===== REJECT POPUP ===== -->
+<div class="vip-modal" id="rejectPopup">
+  <div class="reject-popup-vip">
+    <div class="emoji">❌</div>
+    <h2>PAYMENT NOT RECEIVED!</h2>
+    <p>Aapka payment humein nahi mila. Kripya dobara payment karke try karein.</p>
+    <div class="reject-info-vip">
+      <p><strong>Order ID:</strong> <span id="rejectOrderId">-</span></p>
+      <p><strong>Amount:</strong> <span id="rejectOrderAmount">₹0</span></p>
+      <p style="margin-top:12px;font-size:12px;color:#a0a0c0;">Agar aapne payment kiya hai to Telegram pe screenshot bhejein: @gxdlsahuop</p>
+    </div>
+    <button class="reject-btn-vip" onclick="closeRejectPopup()">🔄 DOBARA TRY KAREIN</button>
+  </div>
+</div>
+
+<!-- ===== TIMEOUT POPUP ===== -->
+<div class="timeout-popup-vip" id="timeoutPopup">
+  <div class="timeout-box-vip">
+    <div class="timeout-emoji">⏰</div>
+    <h3>PAYMENT TIME EXPIRED!</h3>
+    <p>Aapka payment time khatam ho gaya hai.<br>Order cancel kar diya gaya hai.</p>
+    <div class="timeout-info-vip">
+      <div><span>Order ID:</span><strong id="timeoutOrderId">-</strong></div>
+      <div><span>Amount:</span><strong id="timeoutOrderAmount">₹0</strong></div>
+    </div>
+    <div class="timeout-btn-row-vip">
+      <button class="btn-ok-vip" onclick="closeTimeoutPopup()">OK</button>
+      <button class="btn-retry-vip" onclick="retryAfterTimeout()">🔄 RETRY</button>
+    </div>
+  </div>
+</div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, doc, getDocs, getDoc, setDoc, addDoc, updateDoc, deleteDoc, onSnapshot, query, where } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+const firebaseConfig = {
+  apiKey: "AIzaSyAZIFhtaItfF8g0sxJbJkVjULjo72mLg_Y",
+  authDomain: "gxdlsahuopstore.firebaseapp.com",
+  projectId: "gxdlsahuopstore",
+  storageBucket: "gxdlsahuopstore.firebasestorage.app",
+  messagingSenderId: "714005149951",
+  appId: "1:714005149951:web:5b62e0473e653f9756f4ca"
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+window.FS = { db, collection, doc, getDocs, getDoc, setDoc, addDoc, updateDoc, deleteDoc, onSnapshot, query, where };
+const DEFAULT_RATES = [
+  {time:'1 hour', price:10},
+  {time:'2 hours', price:20},
+  {time:'6 hours', price:30},
+  {time:'12 hours', price:40},
+  {time:'1 day', price:60},
+  {time:'3 days', price:150},
+  {time:'7 days', price:300},
+  {time:'15 days', price:500},
+  {time:'30 days', price:800}
+];
+async function ensureRates() {
+  try {
+    const snap = await getDocs(collection(db, 'rates'));
+    if (snap.empty) { for (const r of DEFAULT_RATES) await addDoc(collection(db, 'rates'), r); }
+  } catch (e) { console.error(e); }
+}
+async function ensureProducts() {
+  try {
+    const snap = await getDocs(collection(db, 'products'));
+    if (snap.empty) await addDoc(collection(db, 'products'), { id:1, name:'SERVER HACK D DOS APK GOLIXMAR' });
+  } catch (e) { console.error(e); }
+}
+async function boot() {
+  await ensureRates();
+  await ensureProducts();
+  window.dispatchEvent(new Event('firestore-ready'));
+}
+boot();
+</script>
+
+<script>
+const TELEGRAM_BOT_TOKEN = '8593012512:AAE7NF_hPUzmI5ilGLGByygUc3wDzvDCudA';
+const TELEGRAM_CHAT_ID = '6838233014';
+const PROMO_BOT_TOKEN = '8703458177:AAHLeZMyI3XJ_RpfpVnsX23zNKM-IDSAxAY';
+const PROMO_CHAT_ID = '-1004489689502';
+
+let products = [], rates = [], promos = [], keyStock = [], pendingOrders = [];
+let selectedProductId = 1, selectedDuration = '12 hours', currentPrice = 40, appliedDiscount = 0;
+let currentOrderId = null, currentOrderDocId = null, currentKey = '', currentKeyDuration = '';
+let currentOrderDuration = '12 hours';
+let appliedPromoCode = null;
+let paymentTimerInterval = null, myKeysTimerInterval = null;
+let rejectPopupShown = false;
+let currentUserName = localStorage.getItem('userName') || '';
+let currentUserPhone = localStorage.getItem('userPhone') || '';
+let currentUserDevice = localStorage.getItem('userDevice') || '';
+let currentUserAutoDevice = localStorage.getItem('userAutoDevice') || '';
+
+function durationToMs(duration) {
+  const map = {
+    '1 hour': 60*60*1000, '2 hours': 2*60*60*1000, '6 hours': 6*60*60*1000,
+    '12 hours': 12*60*60*1000, '1 day': 24*60*60*1000, '3 days': 3*24*60*60*1000,
+    '7 days': 7*24*60*60*1000, '15 days': 15*24*60*60*1000, '30 days': 30*24*60*60*1000
+  };
+  return map[duration] || (60*60*1000);
+}
+
+function formatDuration(ms) {
+  if (ms <= 0) return '00:00:00';
+  const totalSec = Math.floor(ms / 1000);
+  const h = String(Math.floor(totalSec / 3600)).padStart(2, '0');
+  const m = String(Math.floor((totalSec % 3600) / 60)).padStart(2, '0');
+  const s = String(totalSec % 60).padStart(2, '0');
+  return `${h}:${m}:${s}`;
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({ top:0, behavior:'instant' });
+}
+
+function getDeviceModel() {
+  const ua = navigator.userAgent;
+  const androidMatch = ua.match(/Android\s[\d.]+;\s([^)]+)\)/);
+  if (androidMatch) {
+    let model = androidMatch[1];
+    model = model.split(';')[0].trim();
+    if (model.includes(' Build/')) model = model.split(' Build/')[0];
+    model = model.replace(/^[a-z]{2}-[A-Z]{2}$/, '').trim();
+    if (model && model.length > 1) return model;
+  }
+  if (/iPhone/.test(ua)) return 'iPhone';
+  if (/iPad/.test(ua)) return 'iPad';
+  if (/Windows/.test(ua)) return 'Windows PC';
+  if (/Macintosh/.test(ua)) return 'Mac';
+  if (/Linux/.test(ua)) return 'Linux';
+  return '';
+}
+
+async function saveUserName() {
+  const nameInput = document.getElementById('userNameInput');
+  const phoneInput = document.getElementById('userPhoneInput');
+  const deviceInput = document.getElementById('userDeviceInput');
+  const autoDeviceInput = document.getElementById('autoDeviceInput');
+  const name = nameInput.value.trim();
+  const phone = phoneInput.value.trim();
+  let device = deviceInput.value.trim();
+  const autoDevice = autoDeviceInput ? autoDeviceInput.value.trim() : '';
+
+  if (!name || name.length < 2) { alert('❌ Kam se kam 2 characters ka naam daalo!'); return; }
+  if (!phone || phone.length !== 10 || !/^\d+$/.test(phone)) { alert('❌ 10-digit sahi phone number daalo!'); return; }
+  if (!device || device.length < 2) { alert('❌ Kripya apna phone model likhein!'); return; }
+
+  try {
+    const { db, doc, getDoc, setDoc } = window.FS;
+    const userDocRef = doc(db, 'users', phone);
+    const userSnap = await getDoc(userDocRef);
+
+    if (userSnap.exists()) {
+      const existingUser = userSnap.data();
+      currentUserName = existingUser.name;
+      currentUserPhone = phone;
+      currentUserDevice = device;
+      currentUserAutoDevice = autoDevice;
+      localStorage.setItem('userName', currentUserName);
+      localStorage.setItem('userPhone', phone);
+      localStorage.setItem('userDevice', device);
+      localStorage.setItem('userAutoDevice', autoDevice);
+      localStorage.setItem('userNameLocked', 'true');
+      alert('👋 Welcome back, ' + existingUser.name + '!');
+      showScreen('screen-store');
+      return;
+    }
+
+    await setDoc(userDocRef, { name: name, phone: phone, device: device, autoDevice: autoDevice, createdAt: Date.now() });
+    currentUserName = name;
+    currentUserPhone = phone;
+    currentUserDevice = device;
+    currentUserAutoDevice = autoDevice;
+    localStorage.setItem('userName', name);
+    localStorage.setItem('userPhone', phone);
+    localStorage.setItem('userDevice', device);
+    localStorage.setItem('userAutoDevice', autoDevice);
+    localStorage.setItem('userNameLocked', 'true');
+    showScreen('screen-store');
+  } catch (e) {
+    console.error('Login error:', e);
+    alert('❌ Login failed: ' + e.message);
+  }
+}
+
+function checkUserLogin() {
+  const saved = localStorage.getItem('userName');
+  const savedPhone = localStorage.getItem('userPhone');
+  const savedDevice = localStorage.getItem('userDevice');
+  const savedAutoDevice = localStorage.getItem('userAutoDevice');
+  const locked = localStorage.getItem('userNameLocked');
+  if (saved && savedPhone && locked === 'true') {
+    currentUserName = saved;
+    currentUserPhone = savedPhone;
+    currentUserDevice = savedDevice || '';
+    currentUserAutoDevice = savedAutoDevice || '';
+    showScreen('screen-store');
+  } else {
+    showScreen('screen-user-login');
+  }
+}
+</script>
+
+<script>
+let fsReady = false;
+function initFirestoreListeners() {
+  if (fsReady) return;
+  if (!window.FS) return;
+  fsReady = true;
+  const { db, collection, onSnapshot } = window.FS;
+  const order = ['1 hour','2 hours','6 hours','12 hours','1 day','3 days','7 days','15 days','30 days'];
+
+  onSnapshot(collection(db, 'products'), snap => {
+    products = snap.docs.map(d => ({ docId:d.id, ...d.data() }));
+    if (products.length === 0) products = [{ id:1, name:'SERVER HACK D DOS APK GOLIXMAR' }];
+    renderProducts();
+  }, err => console.error(err));
+
+  onSnapshot(collection(db, 'rates'), snap => {
+    const loaded = snap.docs.map(d => ({ docId:d.id, ...d.data() }));
+    if (loaded.length > 0) {
+      loaded.sort((a,b) => {
+        const ia = order.indexOf(a.time);
+        const ib = order.indexOf(b.time);
+        if (ia === -1 && ib === -1) return 0;
+        if (ia === -1) return 1;
+        if (ib === -1) return -1;
+        return ia - ib;
+      });
+      rates = loaded;
+      const r = rates.find(x => x.time === selectedDuration);
+      if (r) currentPrice = Number(r.price);
+      else { selectedDuration = rates[0].time; currentPrice = Number(rates[0].price); }
+    }
+    const el = document.getElementById('selectedDuration');
+    if (el) el.textContent = `${selectedDuration} — ₹${currentPrice.toFixed(2)}`;
+  }, err => console.error(err));
+
+  onSnapshot(collection(db, 'promos'), snap => {
+    promos = snap.docs.map(d => ({ docId:d.id, ...d.data() }));
+  }, err => console.error(err));
+
+  onSnapshot(collection(db, 'keyStock'), snap => {
+    keyStock = snap.docs.map(d => ({ docId:d.id, ...d.data() }));
+  }, err => console.error(err));
+
+  onSnapshot(collection(db, 'orders'), snap => {
+    pendingOrders = snap.docs.map(d => ({ docId:d.id, ...d.data() }));
+    checkMyOrder();
+    checkRejectedOrder();
+    checkTimeExtension();
+  }, err => console.error(err));
+}
+window.addEventListener('firestore-ready', initFirestoreListeners);
+if (window.FS) initFirestoreListeners();
+
+function renderProducts() {
+  if (products.length === 0) {
+    products = [{ id:1, name:'SERVER HACK D DOS APK GOLIXMAR', docId:'fallback' }];
+    selectedProductId = 1;
+    document.getElementById('selectedProduct').textContent = 'SERVER HACK D DOS APK GOLIXMAR';
+    return;
+  }
+  document.getElementById('selectedProduct').textContent = products[0].name;
+  selectedProductId = products[0].id;
+}
+
+function openProductModal() {
+  const c = document.getElementById('productOptions'); c.innerHTML = '';
+  products.forEach(p => {
+    const active = p.id === selectedProductId;
+    c.innerHTML += `<div class="option-item" onclick="selectProduct(${p.id}, '${(p.name||'').replace(/'/g,"\\'")}')"><span>${p.name}</span><div class="radio-vip ${active ? 'active' : ''}"></div></div>`;
+  });
+  document.getElementById('productModal').classList.add('show');
+}
+function closeProductModal(e) { if (e.target.id === 'productModal') document.getElementById('productModal').classList.remove('show'); }
+function selectProduct(id, name) {
+  selectedProductId = id;
+  document.getElementById('selectedProduct').textContent = name;
+  document.getElementById('productModal').classList.remove('show');
+}
+function openDurationModal() {
+  const c = document.getElementById('durationOptions'); c.innerHTML = '';
+  let html = '<div class="duration-grid">';
+  rates.forEach(r => {
+    const active = r.time === selectedDuration;
+    html += `<div class="dur-card ${active ? 'active' : ''}" onclick="selectDuration('${r.time}', ${r.price})">
+      <div class="dc-time">${r.time}</div>
+      <div class="dc-price">₹${Number(r.price).toFixed(0)}</div>
+    </div>`;
+  });
+  html += '</div>';
+  c.innerHTML = html;
+  document.getElementById('durationModal').classList.add('show');
+}
+function closeDurationModal(e) { if (e.target.id === 'durationModal') document.getElementById('durationModal').classList.remove('show'); }
+
+function selectDuration(time, price) {
+  selectedDuration = time;
+  currentPrice = Number(price);
+  appliedDiscount = 0;
+  appliedPromoCode = null;
+  document.getElementById('selectedDuration').textContent = `${time} — ₹${Number(price).toFixed(2)}`;
+  document.getElementById('priceSummary').style.display = 'none';
+  document.getElementById('promoStatus').textContent = '🛡️ Discount is verified securely before payment.';
+  document.getElementById('promoStatus').style.color = '#a0a0c0';
+  document.getElementById('promoInput').value = '';
+  const oldBox = document.getElementById('promoDetailsBox');
+  if (oldBox) oldBox.remove();
+  const promoBody = document.getElementById('promoBody');
+  const promoArrow = document.getElementById('promoArrow');
+  if (promoBody) promoBody.classList.remove('open');
+  if (promoArrow) promoArrow.classList.remove('open');
+  document.getElementById('durationModal').classList.remove('show');
+}
+
+function togglePromo() {
+  const body = document.getElementById('promoBody');
+  const arrow = document.getElementById('promoArrow');
+  if (!body || !arrow) return;
+  body.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+
+async function applyPromo() {
+  const code = document.getElementById('promoInput').value.trim().toUpperCase();
+  const status = document.getElementById('promoStatus');
+  const oldBox = document.getElementById('promoDetailsBox');
+  if (oldBox) oldBox.remove();
+
+  if (!code) { status.textContent = "❌ Please enter a promo code!"; status.style.color = "#ef4444"; return; }
+
+  const usedPromos = JSON.parse(localStorage.getItem('usedPromos') || '[]');
+  if (usedPromos.includes(code)) {
+    status.textContent = "🚫 Aap ye promo code pehle use kar chuke ho!";
+    status.style.color = "#ef4444"; return;
+  }
+  const promo = promos.find(p => (p.code || '').toUpperCase() === code);
+  if (!promo) { status.textContent = "❌ Invalid promo code!"; status.style.color = "#ef4444"; return; }
+  if (Number(promo.expiry) < Date.now()) { status.textContent = "⏰ This promo code has expired!"; status.style.color = "#ef4444"; return; }
+  if (Number(promo.usedCount || 0) >= Number(promo.maxUsers || 0)) { status.textContent = "🚫 This promo code has reached its limit!"; status.style.color = "#ef4444"; return; }
+
+  const perDeviceLimit = Number(promo.perDeviceLimit || 1);
+  const deviceUseKey = 'promoUseCount_' + code;
+  const deviceUseCount = Number(localStorage.getItem(deviceUseKey) || 0);
+  if (deviceUseCount >= perDeviceLimit) {
+    status.textContent = `🚫 Aapne ye promo ${perDeviceLimit} baar use kar liya hai!`;
+    status.style.color = "#ef4444"; return;
+  }
+
+  appliedDiscount = Number(promo.discount);
+  appliedPromoCode = code;
+  status.textContent = `✅ Promo applied! You saved ₹${promo.discount}`;
+  status.style.color = "#22c55e";
+
+  const finalPrice = Math.max(0, currentPrice - appliedDiscount);
+  const detailsBox = document.createElement('div');
+  detailsBox.id = 'promoDetailsBox';
+  detailsBox.className = 'promo-details-box';
+  detailsBox.innerHTML = `
+    <div class="pd-saved">🎉 You saved ₹${appliedDiscount.toFixed(2)}!</div>
+    <div class="pd-row"><span>Original Price:</span><span>₹${currentPrice.toFixed(2)}</span></div>
+    <div class="pd-row"><span>Discount:</span><span style="color:#22c55e;">-₹${appliedDiscount.toFixed(2)}</span></div>
+    <div class="pd-row"><span>Final Price:</span><span>₹${finalPrice.toFixed(2)}</span></div>
+  `;
+  const promoBody = document.getElementById('promoBody');
+  if (promoBody) promoBody.appendChild(detailsBox);
+  document.getElementById('priceSummary').style.display = 'none';
+}
+
+function checkTimeExtension() {
+  if (!currentOrderId) return;
+  const myOrder = pendingOrders.find(o => o.orderId === currentOrderId);
+  if (!myOrder) return;
+  const saved = localStorage.getItem('activeOrder');
+  if (!saved) return;
+  try {
+    const localOrder = JSON.parse(saved);
+    const adminExtendSec = Number(myOrder.extraTimeSeconds || 0);
+    const localExtendSec = Number(localOrder.extraTimeSeconds || 0);
+    if (adminExtendSec > localExtendSec) {
+      const diffSec = adminExtendSec - localExtendSec;
+      localOrder.expiresAt = Number(localOrder.expiresAt) + (diffSec * 1000);
+      localOrder.extraTimeSeconds = adminExtendSec;
+      localStorage.setItem('activeOrder', JSON.stringify(localOrder));
+      const remainingSec = Math.floor((localOrder.expiresAt - Date.now()) / 1000);
+      if (remainingSec > 0 && paymentTimerInterval) {
+        clearInterval(paymentTimerInterval);
+        startPaymentTimer(remainingSec);
+      }
+      alert('⏰ Admin ne aapka payment time ' + Math.floor(diffSec/60) + ' minute badha diya hai!');
+    }
+  } catch(e) { console.warn('Extension check failed:', e); }
+}
+                                   </script>
+                                   <script>
+async function purchase() {
+  const btn = document.getElementById('purchaseBtn');
+  if (btn.disabled) return;
+  if (!selectedProductId || products.length === 0) {
+    products = [{ id:1, name:'SERVER HACK D DOS APK GOLIXMAR' }];
+    selectedProductId = 1;
+    document.getElementById('selectedProduct').textContent = 'SERVER HACK D DOS APK GOLIXMAR';
+  }
+  if (!window.FS) { alert('⏳ Firebase loading... try again.'); return; }
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="btn-spinner"></span> PROCESSING...';
+
+  try {
+    const finalPrice = Math.max(0, currentPrice - appliedDiscount);
+    const prod = products.find(p => p.id === selectedProductId) || products[0];
+    const productName = prod.name;
+
+    const now = new Date();
+    const day = String(now.getDate()).padStart(2, '0');
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const year = String(now.getFullYear()).slice(-2);
+    const dateStr = day + month + year;
+    const hoursStr = String(now.getHours()).padStart(2, '0');
+    const minsStr = String(now.getMinutes()).padStart(2, '0');
+    const timeStr = hoursStr + minsStr;
+    const rand = Math.floor(1000 + Math.random() * 9000);
+    const orderId = 'ORD-' + dateStr + '-' + timeStr + '-' + rand;
+
+    currentOrderId = orderId;
+    currentOrderDuration = selectedDuration;
+    rejectPopupShown = false;
+    const { db, collection, addDoc, doc, updateDoc } = window.FS;
+    const orderData = {
+      orderId, product: productName, duration: selectedDuration,
+      amount: finalPrice, timestamp: Date.now(), status: 'pending',
+      userName: currentUserName || 'Unknown',
+      userPhone: currentUserPhone || '',
+      userDevice: currentUserDevice || 'Not Provided',
+      autoDevice: currentUserAutoDevice || 'Not Detected',
+      extraTimeSeconds: 0
+    };
+    if (appliedPromoCode) orderData.promoCode = appliedPromoCode;
+    if (appliedDiscount > 0) {
+      orderData.discount = appliedDiscount;
+      orderData.originalPrice = currentPrice;
+    }
+    const docRef = await addDoc(collection(db, 'orders'), orderData);
+    currentOrderDocId = docRef.id;
+
+    const savedPromoCode = appliedPromoCode;
+    const savedDiscount = appliedDiscount;
+
+    if (appliedPromoCode) {
+      const promo = promos.find(p => p.code === appliedPromoCode);
+      if (promo) {
+        await updateDoc(doc(db, 'promos', promo.docId), {
+          usedCount: Number(promo.usedCount || 0) + 1
+        });
+      }
+      const deviceUseKey = 'promoUseCount_' + appliedPromoCode;
+      const currentDeviceCount = Number(localStorage.getItem(deviceUseKey) || 0);
+      localStorage.setItem(deviceUseKey, String(currentDeviceCount + 1));
+      const usedPromos = JSON.parse(localStorage.getItem('usedPromos') || '[]');
+      if (!usedPromos.includes(appliedPromoCode)) {
+        usedPromos.push(appliedPromoCode);
+        localStorage.setItem('usedPromos', JSON.stringify(usedPromos));
+      }
+      appliedPromoCode = null;
+    }
+
+    localStorage.setItem('activeOrder', JSON.stringify({
+      orderId: currentOrderId, docId: currentOrderDocId,
+      product: productName, duration: selectedDuration, amount: finalPrice,
+      startedAt: Date.now(),
+      expiresAt: Date.now() + (300 * 1000),
+      extraTimeSeconds: 0
+    }));
+
+    document.getElementById('payAmount').textContent = `₹${finalPrice.toFixed(2)}`;
+    document.getElementById('instrAmount').textContent = `₹${finalPrice.toFixed(2)}`;
+    document.getElementById('orderId').textContent = orderId;
+    document.getElementById('orderProduct').textContent = productName;
+    document.getElementById('orderPlan').textContent = selectedDuration;
+    document.getElementById('orderAmount').textContent = `₹${finalPrice.toFixed(2)}`;
+    document.getElementById('orderStatus').textContent = '⏳ Pending';
+
+    const tgMessage = `Hi, I paid ₹${finalPrice.toFixed(2)} for ${productName} (${selectedDuration}). Order ID: ${orderId}. Name: ${currentUserName} | Phone: ${currentUserPhone}. Please verify.`;
+    document.getElementById('telegramBtn').href = `https://t.me/gxdlsahuop?text=${encodeURIComponent(tgMessage)}`;
+
+    const psBtn = document.getElementById('paymentSuccessBtn');
+    if (psBtn) { psBtn.disabled = false; psBtn.textContent = '✅ PAYMENT SUCCESSFUL'; }
+
+    sendPurchaseNotification(productName, finalPrice, orderId, savedPromoCode, savedDiscount);
+    if (savedPromoCode && savedDiscount > 0) {
+      sendPromoNotificationToBot2(savedPromoCode, savedDiscount, currentUserName, currentUserDevice, currentUserAutoDevice);
+    }
+
+    showScreen('screen-payment');
+    startPaymentTimer(300);
+  } catch (error) {
+    alert('❌ Order failed. Please try again.');
+    console.error(error);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '🛒 PURCHASE NOW';
+  }
+}
+
+function startPaymentTimer(totalSeconds) {
+  if (paymentTimerInterval) clearInterval(paymentTimerInterval);
+  let remaining = totalSeconds;
+  const timerEl = document.getElementById('paymentTimer');
+  const barEl = document.getElementById('timerBarFill');
+  updateTimerDisplay(remaining, timerEl, barEl, totalSeconds);
+  paymentTimerInterval = setInterval(() => {
+    remaining--;
+    updateTimerDisplay(remaining, timerEl, barEl, totalSeconds);
+    if (remaining <= 0) {
+      clearInterval(paymentTimerInterval);
+      showTimeExpiredPopup();
+    }
+  }, 1000);
+}
+function updateTimerDisplay(remaining, timerEl, barEl, total) {
+  const mins = String(Math.floor(remaining / 60)).padStart(2, '0');
+  const secs = String(remaining % 60).padStart(2, '0');
+  timerEl.textContent = `${mins}:${secs}`;
+  barEl.style.width = ((remaining / total) * 100) + '%';
+}
+
+async function sendPurchaseNotification(productName, amount, orderId, promoCode, promoDiscount) {
+  const stockForDuration = keyStock.filter(k => !k.used && k.duration === currentOrderDuration).length;
+  const totalStock = keyStock.filter(k => !k.used).length;
+  let message = `🆕 NEW ORDER PLACED!\n\n`;
+  message += `👤 Name: ${currentUserName}\n`;
+  message += `📱 Phone: ${currentUserPhone}\n`;
+  message += `🆔 Order: ${orderId}\n`;
+  message += `📦 ${productName} — ${currentOrderDuration}\n`;
+  if (promoDiscount > 0) {
+    message += `\n🎟️ PROMO APPLIED: ${promoCode}\n`;
+    message += `💵 Original Price: ₹${currentPrice.toFixed(2)}\n`;
+    message += `✂️ Discount: -₹${promoDiscount.toFixed(2)}\n`;
+    message += `💰 Final Amount: ₹${amount.toFixed(2)}\n`;
+  } else {
+    message += `💰 Amount: ₹${amount.toFixed(2)}\n`;
+  }
+  message += `\n⏰ Time: ${new Date().toLocaleString('en-IN')}\n\n`;
+  message += `⚠️ Status: PENDING (Payment verify karna hai)\n`;
+  message += `👉 Admin Panel → Pending Orders → Approve / Reject`;
+  if (stockForDuration === 0) message += `\n\n🚨 STOCK KHATAM!`;
+  else if (stockForDuration <= 2) message += `\n\n⚠️ LOW STOCK! Sirf ${stockForDuration} keys.`;
+  if (totalStock === 0) message += `\n\n🆘 TOTAL STOCK EMPTY!`;
+  try {
+    await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: message })
+    });
+  } catch (e) { console.error('Notification failed:', e); }
+}
+
+async function sendPromoNotificationToBot2(promoCode, promoDiscount, customerName, deviceUser, deviceAuto) {
+  let message = `🎟️ PROMO CODE USED!\n\n`;
+  message += `👤 Name: ${customerName || 'Unknown'}\n`;
+  message += `📱 Device (User): ${deviceUser || 'Not Provided'}\n`;
+  message += `🔍 Device (Auto): ${deviceAuto || 'Not Detected'}\n`;
+  message += `🎟️ Promo Code: ${promoCode}\n`;
+  message += `💰 Saved: ₹${promoDiscount.toFixed(2)}\n`;
+  message += `⏰ Time: ${new Date().toLocaleString('en-IN')}`;
+  try {
+    await fetch(`https://api.telegram.org/bot${PROMO_BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: PROMO_CHAT_ID, text: message })
+    });
+  } catch (e) { console.error('Promo bot failed:', e); }
+}
+                                   </script>
+                                   <script>
+function showTimeExpiredPopup() {
+  if (paymentTimerInterval) clearInterval(paymentTimerInterval);
+  const saved = localStorage.getItem('activeOrder');
+  if (saved) {
+    try {
+      const order = JSON.parse(saved);
+      document.getElementById('timeoutOrderId').textContent = order.orderId || '-';
+      document.getElementById('timeoutOrderAmount').textContent = `₹${Number(order.amount || 0).toFixed(2)}`;
+    } catch(e) {}
+  }
+  document.getElementById('timeoutPopup').classList.add('show');
+  (async () => {
+    if (currentOrderDocId && window.FS) {
+      try {
+        const { db, doc, deleteDoc } = window.FS;
+        await deleteDoc(doc(db, 'orders', currentOrderDocId));
+      } catch(e) {}
+    }
+    localStorage.removeItem('activeOrder');
+  })();
+}
+
+function closeTimeoutPopup() {
+  document.getElementById('timeoutPopup').classList.remove('show');
+  currentOrderId = null; currentOrderDocId = null; rejectPopupShown = false;
+  showScreen('screen-store');
+}
+
+function retryAfterTimeout() {
+  document.getElementById('timeoutPopup').classList.remove('show');
+  currentOrderId = null; currentOrderDocId = null; rejectPopupShown = false;
+  localStorage.removeItem('activeOrder');
+  showScreen('screen-store');
+  setTimeout(() => { window.scrollTo({ top:0, behavior:'smooth' }); }, 200);
+}
+
+function checkMyOrder() {
+  if (!currentOrderId) return;
+  const myOrder = pendingOrders.find(o => o.orderId === currentOrderId && o.status === 'approved');
+  if (myOrder && myOrder.licenseKey && !document.getElementById('keyPopup').classList.contains('show')) {
+    if (paymentTimerInterval) clearInterval(paymentTimerInterval);
+    currentKey = myOrder.licenseKey;
+    currentKeyDuration = myOrder.keyDuration || myOrder.duration;
+    document.getElementById('licenseKeyText').textContent = myOrder.licenseKey;
+    document.getElementById('licenseKeyDuration').textContent = `⏱️ ${currentKeyDuration}`;
+    document.getElementById('orderStatus').textContent = '✅ Paid';
+    document.getElementById('keyPopup').classList.add('show');
+    saveKeyToLocal(myOrder);
+    localStorage.removeItem('activeOrder');
+  }
+}
+function checkRejectedOrder() {
+  if (!currentOrderId) return;
+  if (rejectPopupShown) return;
+  const myOrder = pendingOrders.find(o => o.orderId === currentOrderId);
+  if (myOrder && myOrder.status === 'rejected') {
+    if (paymentTimerInterval) clearInterval(paymentTimerInterval);
+    rejectPopupShown = true;
+    document.getElementById('rejectOrderId').textContent = myOrder.orderId;
+    document.getElementById('rejectOrderAmount').textContent = `₹${Number(myOrder.amount).toFixed(2)}`;
+    document.getElementById('rejectPopup').classList.add('show');
+    document.getElementById('orderStatus').textContent = '❌ Rejected';
+  }
+}
+function closeRejectPopup() {
+  document.getElementById('rejectPopup').classList.remove('show');
+  currentOrderId = null; currentOrderDocId = null; rejectPopupShown = false;
+  localStorage.removeItem('activeOrder');
+  showScreen('screen-store');
+}
+
+function saveKeyToLocal(order) {
+  const saved = localStorage.getItem('myKeys');
+  let keys = saved ? JSON.parse(saved) : [];
+  if (keys.find(k => k.key === order.licenseKey)) return;
+  keys.push({
+    key: order.licenseKey, product: order.product,
+    duration: order.keyDuration || order.duration,
+    approvedAt: Number(order.approvedAt) || Date.now(),
+    expiryAt: (Number(order.approvedAt) || Date.now()) + durationToMs(order.keyDuration || order.duration)
+  });
+  localStorage.setItem('myKeys', JSON.stringify(keys));
+}
+
+function copyKey() {
+  navigator.clipboard.writeText(currentKey).then(() => alert('✅ License Key copied!')).catch(() => alert(`License Key: ${currentKey}`));
+}
+function closeKeyPopupAndMyKeys() {
+  document.getElementById('keyPopup').classList.remove('show');
+  currentOrderId = null; currentOrderDocId = null;
+  localStorage.removeItem('activeOrder');
+  openMyKeys();
+}
+
+async function cancelPayment() {
+  if (paymentTimerInterval) clearInterval(paymentTimerInterval);
+  if (currentOrderDocId && window.FS) {
+    try {
+      const { db, doc, deleteDoc } = window.FS;
+      await deleteDoc(doc(db, 'orders', currentOrderDocId));
+    } catch(e) {}
+  }
+  currentOrderId = null; currentOrderDocId = null;
+  localStorage.removeItem('activeOrder');
+  showScreen('screen-store');
+}
+
+async function markPaymentSuccessful() {
+  if (!currentOrderId) { alert('❌ Order not found. Please refresh.'); return; }
+  const btn = document.getElementById('paymentSuccessBtn');
+  if (btn.disabled) return;
+  btn.disabled = true;
+  btn.textContent = '✅ NOTIFICATION SENT!';
+  const prod = products.find(p => p.id === selectedProductId) || products[0];
+  const productName = prod ? prod.name : 'SERVER HACK D DOS APK GOLIXMAR';
+  const stockForDuration = keyStock.filter(k => !k.used && k.duration === currentOrderDuration).length;
+  const totalStock = keyStock.filter(k => !k.used).length;
+  let message = `✅ PAYMENT CLAIMED!\n\n👤 Name: ${currentUserName}\n📱 Phone: ${currentUserPhone}\n🆔 Order: ${currentOrderId}\n📦 ${productName} — ${currentOrderDuration}\n💰 ₹${currentPrice.toFixed(2)}\n⏰ Time: ${new Date().toLocaleString('en-IN')}`;
+  if (stockForDuration === 0) message += `\n\n🚨 STOCK KHATAM!`;
+  else if (stockForDuration <= 2) message += `\n\n⚠️ LOW STOCK! Sirf ${stockForDuration} keys.`;
+  else message += `\n\n👉 Admin Dashboard → Approve`;
+  if (totalStock === 0) message += `\n\n🆘 TOTAL STOCK EMPTY!`;
+  message += `\n\n📸 Screenshot @gxdlsahuop pe check karo`;
+  try {
+    await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: message })
+    });
+  } catch (e) { console.error('Notification failed:', e); }
+}
+</script>
+
+<script>
+function openMyKeys() {
+  renderMyKeys();
+  showScreen('screen-mykeys');
+  if (myKeysTimerInterval) clearInterval(myKeysTimerInterval);
+  myKeysTimerInterval = setInterval(updateMyKeysTimers, 1000);
+}
+function closeMyKeys() {
+  if (myKeysTimerInterval) clearInterval(myKeysTimerInterval);
+  myKeysTimerInterval = null;
+  showScreen('screen-store');
+}
+function renderMyKeys() {
+  const list = document.getElementById('myKeysList');
+  if (!list) return;
+  const saved = localStorage.getItem('myKeys');
+  let keys = saved ? JSON.parse(saved) : [];
+  const now = Date.now();
+  keys = keys.filter(k => k.expiryAt > now);
+  localStorage.setItem('myKeys', JSON.stringify(keys));
+  if (keys.length === 0) {
+    list.innerHTML = '<div class="mykey-card-vip" style="text-align:center;padding:44px 20px;"><div style="font-size:64px;margin-bottom:16px;filter:drop-shadow(0 0 20px rgba(255,215,0,0.4));">🔑</div><h3 style="color:#FFD700;font-size:19px;margin-bottom:8px;font-weight:900;letter-spacing:0.5px;">NO VIP KEYS YET</h3><p style="color:#a0a0c0;font-size:14px;">Aapne abhi tak koi premium key nahi kharidi.</p><button onclick="closeMyKeys()" class="vip-btn" style="margin-top:22px;">🛒 PURCHASE NOW</button></div>';
+    return;
+  }
+  keys.sort((a,b) => b.approvedAt - a.approvedAt);
+  list.innerHTML = '';
+  keys.forEach((k, idx) => {
+    const remaining = k.expiryAt - now;
+    const total = durationToMs(k.duration);
+    const percent = Math.max(0, Math.min(100, (remaining / total) * 100));
+    let color = '#22c55e';
+    if (percent < 20) color = '#ef4444';
+    else if (percent < 50) color = '#f59e0b';
+    const safeKey = (k.key || '').replace(/'/g, "\\'");
+    list.innerHTML += `<div class="mykey-card-vip" data-idx="${idx}">
+      <div class="mykey-product-vip">💎 ${k.product} — ${k.duration}</div>
+      <div class="mykey-value-vip">🔑 ${k.key}</div>
+      <div class="mykey-timer-vip" data-idx="${idx}" style="color:${color};">${formatDuration(remaining)}</div>
+      <div class="mykey-progress-vip"><div class="mykey-progress-fill-vip" data-idx="${idx}" style="width:${percent}%;background:${color};"></div></div>
+      <div class="mykey-expiry-vip">📅 Expires: ${new Date(k.expiryAt).toLocaleString('en-IN')}</div>
+      <div class="apk-wrap-vip" style="margin-top:14px;margin-bottom:14px;">
+        <div class="apk-card-vip">
+          <div class="apk-icon-vip">
+            <svg viewBox="0 0 24 24" fill="#fff" width="28" height="28">
+              <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/>
+            </svg>
+          </div>
+          <div class="apk-info-vip">
+            <div class="apk-name-vip">GOLIxMAR v4.6.apk</div>
+            <div class="apk-size-vip">3.3 MB APK</div>
+          </div>
+        </div>
+        <a href="https://gxdlsahuop.in/GOLIxMAR%20v4.6.apk" download class="apk-download-btn-vip">
+          📥 DOWNLOAD APK
+        </a>
+      </div>
+      <button class="mykey-copy-vip" onclick="copyKeyFromList('${safeKey}')">📋 COPY KEY</button>
+    </div>`;
+  });
+}
+function updateMyKeysTimers() {
+  const saved = localStorage.getItem('myKeys');
+  if (!saved) return;
+  let keys = JSON.parse(saved);
+  const now = Date.now();
+  const active = keys.filter(k => k.expiryAt > now);
+  if (active.length !== keys.length) {
+    localStorage.setItem('myKeys', JSON.stringify(active));
+    renderMyKeys();
+    return;
+  }
+  keys.forEach((k, idx) => {
+    const remaining = k.expiryAt - now;
+    const total = durationToMs(k.duration);
+    const percent = Math.max(0, Math.min(100, (remaining / total) * 100));
+    let color = '#22c55e';
+    if (percent < 20) color = '#ef4444';
+    else if (percent < 50) color = '#f59e0b';
+    const timerEl = document.querySelector(`.mykey-timer-vip[data-idx="${idx}"]`);
+    const barEl = document.querySelector(`.mykey-progress-fill-vip[data-idx="${idx}"]`);
+    if (timerEl) { timerEl.textContent = formatDuration(remaining); timerEl.style.color = color; }
+    if (barEl) { barEl.style.width = percent + '%'; barEl.style.background = color; }
+  });
+}
+function copyKeyFromList(key) {
+  navigator.clipboard.writeText(key).then(() => alert('✅ Key copied!')).catch(() => alert(`Key: ${key}`));
+}
+</script>
+
+<script>
+window.addEventListener('load', () => {
+  checkUserLogin();
+  setTimeout(() => { if (window.FS) initFirestoreListeners(); }, 100);
+
+  setTimeout(() => {
+    const autoInput = document.getElementById('autoDeviceInput');
+    if (autoInput) {
+      const autoModel = getDeviceModel();
+      if (autoModel && autoModel !== '') {
+        autoInput.value = autoModel;
+      } else {
+        autoInput.value = 'Not Detected';
+      }
+    }
+  }, 300);
+
+  const saved = localStorage.getItem('activeOrder');
+  if (saved) {
+    try {
+      const order = JSON.parse(saved);
+      currentOrderId = order.orderId;
+      currentOrderDocId = order.docId;
+      currentOrderDuration = order.duration;
+      rejectPopupShown = false;
+      document.getElementById('payAmount').textContent = `₹${Number(order.amount).toFixed(2)}`;
+      document.getElementById('instrAmount').textContent = `₹${Number(order.amount).toFixed(2)}`;
+      document.getElementById('orderId').textContent = order.orderId;
+      document.getElementById('orderProduct').textContent = order.product;
+      document.getElementById('orderPlan').textContent = order.duration;
+      document.getElementById('orderAmount').textContent = `₹${Number(order.amount).toFixed(2)}`;
+      document.getElementById('orderStatus').textContent = '⏳ Pending';
+      const tgMessage = `Hi, I paid ₹${Number(order.amount).toFixed(2)} for ${order.product} (${order.duration}). Order ID: ${order.orderId}. Name: ${currentUserName} | Phone: ${currentUserPhone}. Please verify.`;
+      document.getElementById('telegramBtn').href = `https://t.me/gxdlsahuop?text=${encodeURIComponent(tgMessage)}`;
+      setTimeout(() => {
+        showScreen('screen-payment');
+        const expiresAt = Number(order.expiresAt) || (Date.now() + 300000);
+        const remainingSec = Math.floor((expiresAt - Date.now()) / 1000);
+        if (remainingSec <= 0) {
+          currentOrderId = order.orderId;
+          currentOrderDocId = order.docId;
+          showTimeExpiredPopup();
+        } else {
+          startPaymentTimer(remainingSec);
+        }
+      }, 500);
+    } catch (e) { console.warn('Restore failed:', e); }
+  }
+});
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible' && currentOrderId) {
+    const saved = localStorage.getItem('activeOrder');
+    if (saved) {
+      try {
+        const order = JSON.parse(saved);
+        const expiresAt = Number(order.expiresAt) || (Date.now() + 300000);
+        const remainingSec = Math.floor((expiresAt - Date.now()) / 1000);
+        if (remainingSec <= 0) {
+          if (paymentTimerInterval) clearInterval(paymentTimerInterval);
+          currentOrderId = order.orderId;
+          currentOrderDocId = order.docId;
+          showTimeExpiredPopup();
+        } else {
+          if (paymentTimerInterval) clearInterval(paymentTimerInterval);
+          startPaymentTimer(remainingSec);
+        }
+      } catch(e) {}
+    }
+  }
+});
+</script>
+</body>
+</html>
